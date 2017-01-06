@@ -23,6 +23,8 @@ public class ProjectileScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Shield") {
 			GameObject.Destroy (gameObject);
+			GameControl.instance.score++;
+			Debug.Log ("Score: " + GameControl.instance.score);
 		}
 	}
 }
