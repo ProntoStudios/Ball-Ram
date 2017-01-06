@@ -11,7 +11,7 @@ public class ProjectileScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		health = 2;
+		health = 1;
 		rb2d = GetComponent<Rigidbody2D> ();
 		projCol = GetComponent<CircleCollider2D> ();
 		minSpeed = 1;
