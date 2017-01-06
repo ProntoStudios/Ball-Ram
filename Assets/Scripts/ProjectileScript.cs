@@ -19,7 +19,6 @@ public class ProjectileScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
 	}
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Shield") {

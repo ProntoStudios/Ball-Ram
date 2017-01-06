@@ -18,8 +18,9 @@ public class ShieldMainScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		gameObject.transform.RotateAround (Vector3.zero, zAxis, rotateSpeed);
+	void FixedUpdate () {
+		var playerPos = GameObject.Find ("Player").transform.position;
+		gameObject.transform.RotateAround ((Vector3) playerPos, zAxis, rotateSpeed);
 		
 
 	}
