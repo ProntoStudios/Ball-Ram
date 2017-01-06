@@ -7,9 +7,11 @@ public class ProjectileScript : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	private CircleCollider2D projCol;
 	private int minSpeed, maxSpeed;
+	public int health;
 
 	// Use this for initialization
 	void Start () {
+		health = 2;
 		rb2d = GetComponent<Rigidbody2D> ();
 		projCol = GetComponent<CircleCollider2D> ();
 		minSpeed = 1;
@@ -22,7 +24,13 @@ public class ProjectileScript : MonoBehaviour {
 	}
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Shield") {
-			GameObject.Destroy (gameObject);
+			health--;
+			Debug.Log("Ball HP: " + health);
+			if (health < 1) {
+				GameObject.Destroy (gameObject);
+				GameControl.instance.score++;
+				Debug.Log ("Score: " + GameControl.instance.score);
+			}
 		}
 	}
 }
