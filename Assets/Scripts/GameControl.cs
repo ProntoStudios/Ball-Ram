@@ -27,6 +27,6 @@ public class GameControl : MonoBehaviour {
 	}
 
 	public void PlayerDied(){
-
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 	}
 }
