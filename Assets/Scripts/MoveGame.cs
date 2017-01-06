@@ -19,7 +19,7 @@ public class MoveGame : MonoBehaviour {
 		//gameObject.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 0.01f, gameObject.transform.localPosition.y + 0.01f, gameObject.transform.localPosition.z);
 
 
-		rb2d.velocity = new Vector2 (10,10);
+		rb2d.velocity = new Vector2 (10*h,10*v);
 
     }
 }
