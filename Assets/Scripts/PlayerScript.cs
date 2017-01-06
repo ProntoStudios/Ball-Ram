@@ -25,7 +25,6 @@ public class PlayerScript : MonoBehaviour {
 		if (node.gameObject.tag == "Projectile") {
 			health--;
 			Debug.Log("Health: " + health);
-
 		}
 	}
 }
