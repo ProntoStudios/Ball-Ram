@@ -16,6 +16,9 @@ public class ProjectileScript : MonoBehaviour {
 	void Update () {
 
 	}
-	void OnCollisionEnter2D(){
+	void OnCollisionEnter2D(Collision2D node){
+		if (node.gameObject.tag == "Shield") {
+			GameObject.Destroy (gameObject);
+		}
 	}
 }
