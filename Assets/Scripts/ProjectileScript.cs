@@ -14,11 +14,11 @@ public class ProjectileScript : MonoBehaviour {
 		projCol = GetComponent<CircleCollider2D> ();
 		minSpeed = 1;
 		maxSpeed = 10;
-		rb2d.velocity = new Vector2(Random.Range(minSpeed, maxSpeed), Random.Range(minSpeed, maxSpeed));
+		//rb2d.velocity = new Vector2(Random.Range(minSpeed, maxSpeed), Random.Range(minSpeed, maxSpeed));
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 	}
 	void OnCollisionEnter2D(Collision2D node){
