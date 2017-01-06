@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour {
 	public static GameControl instance;
+	public int score;
 
 	// Use this for initialization
 	void Awake () {
@@ -13,6 +14,8 @@ public class GameControl : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
+
+		score = 0;
 
 	}
 	

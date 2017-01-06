@@ -21,8 +21,11 @@ public class PlayerScript : MonoBehaviour {
 			GameControl.instance.PlayerDied ();
 		}
 	}
-	void OnCollisionEnter2D(){
-		health--;
-		Debug.Log("Health: " + health);
+	void OnCollisionEnter2D(Collision2D node){
+		if (node.gameObject.tag == "Projectile") {
+			health--;
+			Debug.Log("Health: " + health);
+
+		}
 	}
 }
