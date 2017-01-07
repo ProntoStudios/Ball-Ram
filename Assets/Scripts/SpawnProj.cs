@@ -15,7 +15,7 @@ public class SpawnProj : MonoBehaviour {
     {
         if(numProjs < maxProjs)
         {
-            Instantiate(Resources.Load<GameObject>("Prefabs/ProjSpawn"));
+            Instantiate(Resources.Load<GameObject>("Prefabs/Proj0"));
             numProjs++;
         }
     }
