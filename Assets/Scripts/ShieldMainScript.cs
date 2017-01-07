@@ -12,7 +12,8 @@ public class ShieldMainScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		rotateSpeed = 2f;
+		//rotateSpeed = 2f;
+		rotateSpeed = 1f;
 		rb2d = GetComponent<Rigidbody2D> ();
 		shieldCol = GetComponent<BoxCollider2D> ();
 	}
@@ -21,7 +22,7 @@ public class ShieldMainScript : MonoBehaviour {
 	void FixedUpdate () {
 		var playerPos = GameObject.Find ("Player").transform.position;
 		gameObject.transform.RotateAround ((Vector3) playerPos, zAxis, rotateSpeed);
-		
+		//gameObject.transform.localScale = (Vector3)gameObject.transform.localScale + new Vector3 (0.1f,0,0);
 
 	}
 }

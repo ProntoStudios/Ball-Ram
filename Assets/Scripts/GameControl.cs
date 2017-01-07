@@ -14,8 +14,8 @@ public class GameControl : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
-
 		score = 0;
+
 
 	}
 	
