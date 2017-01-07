@@ -8,16 +8,15 @@ public class SpawnProj : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		maxProjs = 1;
-        InvokeRepeating("CreateObstacle", 1f, 1.5f);
+		maxProjs = 100;
+        InvokeRepeating("CreateObstacle", 1.5f, 1.5f);
 	}
 	
 	void CreateObstacle()
     {
         if(numProjs < maxProjs)
-        {
-			Instantiate(Resources.Load<GameObject>("Prefabs/Proj2"));
-			Instantiate(Resources.Load<GameObject>("Prefabs/Proj4"));
+		{
+			Instantiate(Resources.Load<GameObject>("Prefabs/Proj" + Random.Range(0,5)));
             numProjs++;
         }
     }
