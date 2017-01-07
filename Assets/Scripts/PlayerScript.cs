@@ -46,7 +46,6 @@ public class PlayerScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Projectile") {
 			health--;
-			Debug.Log("Health: " + health);
 		}
 	}
 }
