@@ -452,7 +452,8 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Collab: 1
   cloudProjectId: 5381682d-3f36-41b8-9704-0d42818cc019
   projectName: Ball Ram
   organizationId: wilsoncwu

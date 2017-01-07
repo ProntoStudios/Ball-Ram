@@ -16,7 +16,7 @@ public class HomingScript : MonoBehaviour {
 		Vector3 toPlayer = playerPos - gameObject.transform.position;
 		toPlayer.Normalize ();
 
-		rb2d.velocity = (Vector3) rb2d.velocity + Vector3.ClampMagnitude(toPlayer,0.5f);
+		rb2d.velocity = (Vector3) rb2d.velocity + Vector3.ClampMagnitude(toPlayer,0.7f);
 		rb2d.velocity = Vector3.ClampMagnitude (rb2d.velocity, 10);
 	}
 }
