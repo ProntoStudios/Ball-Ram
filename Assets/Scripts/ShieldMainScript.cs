@@ -13,7 +13,7 @@ public class ShieldMainScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//rotateSpeed = 2f;
-		rotateSpeed = 1f;
+		rotateSpeed = 2f;
 		rb2d = GetComponent<Rigidbody2D> ();
 		shieldCol = GetComponent<BoxCollider2D> ();
 	}
