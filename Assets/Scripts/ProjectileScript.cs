@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour {
-
+	public static ProjectileScript instance;
 	private Rigidbody2D rb2d;
 	private CircleCollider2D projCol;
 	private int minSpeed, maxSpeed;
@@ -11,6 +11,11 @@ public class ProjectileScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (instance == null) {
+			instance = this;
+		} else if (instance != this) {
+			Destroy (gameObject);
+		}
 		health = 1;
 		rb2d = GetComponent<Rigidbody2D> ();
 		projCol = GetComponent<CircleCollider2D> ();
