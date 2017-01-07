@@ -29,7 +29,6 @@ public class ProjectileScript : MonoBehaviour {
 			if (health < 1) {
 				GameObject.Destroy (gameObject);
 				GameControl.instance.score++;
-				Debug.Log ("Score: " + GameControl.instance.score);
 			}
 		}
 		else if (node.gameObject.name == "Player") {
