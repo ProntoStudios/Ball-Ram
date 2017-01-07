@@ -25,7 +25,6 @@ public class PlayerScript : MonoBehaviour {
 			tempShield.name = "ShieldMain" + i.ToString ();
 
 			tempShield.transform.RotateAround ((Vector3) gameObject.transform.position, zAxis, shieldDist*i);
-			Debug.Log (shieldDist * i);
 
 			shieldArr.Add (tempShield);
 		}
