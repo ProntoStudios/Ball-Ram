@@ -26,7 +26,15 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 
+	private void OnGUI(){
+		GUI.Label (new Rect (10, 10, 100, 20), "Score: " + score);
+		GUI.Label (new Rect (10, 30, 100, 20), "Health: " + PlayerScript.instance.health);
+
+	}
+
+
 	public void PlayerDied(){
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 	}
+
 }

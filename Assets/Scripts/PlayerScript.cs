@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
+	public static PlayerScript instance;
+
 	private Rigidbody2D rb2d;
 	private CircleCollider2D playerCol;
 	public int health;
@@ -12,6 +14,11 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (instance == null) {
+			instance = this;
+		} else if (instance != this) {
+			Destroy (gameObject);
+		}
 		rb2d = GetComponent<Rigidbody2D> ();
 		playerCol = GetComponent<CircleCollider2D> ();
 
