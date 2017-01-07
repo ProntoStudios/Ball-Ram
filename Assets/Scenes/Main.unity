@@ -91,61 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &21501241
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1359303841}
-    m_Modifications:
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.19999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.06
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c8f4773c0f3e54e5e85f76dc62a330a2, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &21501242 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4956422176423292, guid: c8f4773c0f3e54e5e85f76dc62a330a2,
-    type: 2}
-  m_PrefabInternal: {fileID: 21501241}
 --- !u!1 &156822377
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +371,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.6901961, g: 0.8352941, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -516,7 +461,7 @@ SpriteRenderer:
   m_SortingLayerID: 457442923
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e2a9db168767b4e3694ef510f78e5c2d, type: 3}
-  m_Color: {r: 0.22794117, g: 0.9117647, b: 0.2609534, a: 1}
+  m_Color: {r: 0.8352941, g: 0.6039216, b: 0.99215686, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &1359303841
@@ -526,11 +471,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1359303839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_Children:
   - {fileID: 1242803782}
-  - {fileID: 21501242}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -754,6 +698,7 @@ GameObject:
   - component: {fileID: 2091218868}
   - component: {fileID: 2091218867}
   - component: {fileID: 2091218869}
+  - component: {fileID: 2091218870}
   m_Layer: 0
   m_Name: WallRight
   m_TagString: Untagged
@@ -823,3 +768,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.1, y: 3.2}
+--- !u!114 &2091218870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2091218866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
