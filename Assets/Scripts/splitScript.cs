@@ -26,7 +26,9 @@ public class splitScript : MonoBehaviour {
 					GameControl.instance.spawnProj (2, gameObject.transform.position);
 				}
 				GameObject.Destroy (gameObject);
-				GameControl.instance.score++;
+				GameControl.instance.numDead++;
+				GameControl.instance.numDeadInRow++;
+				GameControl.instance.score += GameControl.instance.numDeadInRow;
 				GameControl.instance.numProj--;
 			}
 		}

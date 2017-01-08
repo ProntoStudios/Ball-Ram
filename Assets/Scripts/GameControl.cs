@@ -9,6 +9,8 @@ public class GameControl : MonoBehaviour {
 	public int numProj;
 	public List<GameObject> projArr;
 	public int level;
+	public int numDead = 0;
+	public int numDeadInRow = 0;
 
 	// Use this for initialization
 	void Awake () {
@@ -27,7 +29,7 @@ public class GameControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (score / (level * 3) > 0) {
+		if (numDead / (level * 3) > 0) {
 			level++;
 		}
 		if(Input.GetMouseButtonDown (0)){
