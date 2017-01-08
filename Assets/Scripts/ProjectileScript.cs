@@ -28,11 +28,13 @@ public class ProjectileScript : MonoBehaviour {
 			if (health < 1) {
 				GameObject.Destroy (gameObject);
 				GameControl.instance.score++;
+				GameControl.instance.numProj--;
 			}
 		}
 		else if (node.gameObject.name == "Player") {
 			GameObject.Destroy (gameObject);
 			GameControl.instance.score++;
+			GameControl.instance.numProj--;
 		}
 	}
 }

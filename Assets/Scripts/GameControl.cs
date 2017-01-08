@@ -43,10 +43,13 @@ public class GameControl : MonoBehaviour {
 
 	public void spawnProj(int projType, Vector3 pos){
         GameObject tempProj = Instantiate(Resources.Load<GameObject>("Prefabs/Proj" + projType.ToString()), pos, Quaternion.Euler(0, 0, 0));
-		tempProj.name = "proj" + projType.ToString() + "_" + numProj.ToString();
-		//tempProj.transform.position = pos;
+		tempProj.name = "proj" + projType.ToString () + "_" + numProj.ToString ();
 		projArr.Add (tempProj);
 		numProj++;
+	}
+
+	public void deleteProj(int arrNum){
+
 	}
 
 }
