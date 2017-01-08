@@ -15,6 +15,7 @@ public class GameControl : MonoBehaviour {
 			Destroy (gameObject);
 		}
 		score = 0;
+		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
 
 	}
