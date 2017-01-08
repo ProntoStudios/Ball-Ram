@@ -7,7 +7,7 @@ public class HealthEnemyScript : MonoBehaviour {
     private Rigidbody2D rb;
     private ProjectileScript pScript;
     private SpriteRenderer spRend;
-    public int maxHealth = 4;
+    public int maxHealth;
 
     // Use this for initialization
     void Start () {

@@ -27,6 +27,7 @@ public class splitScript : MonoBehaviour {
 				}
 				GameObject.Destroy (gameObject);
 				GameControl.instance.score++;
+				GameControl.instance.numProj--;
 			}
 		}
 
