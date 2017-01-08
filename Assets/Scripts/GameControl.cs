@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour {
 	public static GameControl instance;
 	public int score;
+	public int numProj;
+	public List<GameObject> projArr;
 
 	// Use this for initialization
 	void Awake () {
@@ -15,6 +17,7 @@ public class GameControl : MonoBehaviour {
 			Destroy (gameObject);
 		}
 		score = 0;
+		numProj = 0;
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
 
@@ -36,6 +39,14 @@ public class GameControl : MonoBehaviour {
 
 	public void PlayerDied(){
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
+	}
+
+	public void spawnProj(int projType, Vector3 pos){
+		GameObject tempProj = Instantiate(Resources.Load<GameObject>("Prefabs/Proj" + projType.ToString()));
+		tempProj.name = "proj" + projType.ToString() + "_" + numProj.ToString();
+		tempProj.transform.position = pos;
+		projArr.Add (tempProj);
+		numProj++;
 	}
 
 }

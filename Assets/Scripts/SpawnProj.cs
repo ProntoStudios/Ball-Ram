@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnProj : MonoBehaviour {
-    public int maxProjs;
-    private int numProjs = 0;
+    public int maxProj;
 
 	// Use this for initialization
 	void Start () {
-		maxProjs = 100;
+		maxProj = 100;
         InvokeRepeating("CreateObstacle", 1.5f, 1.5f);
 	}
 	
 	void CreateObstacle()
     {
-        if(numProjs < maxProjs)
+		if(GameControl.instance.numProj < maxProj)
 		{
-			Instantiate(Resources.Load<GameObject>("Prefabs/Proj" + Random.Range(0,5)));
-            numProjs++;
+			GameControl.instance.spawnProj (Random.Range(0,5), Vector3.zero);
         }
     }
 }

@@ -23,8 +23,7 @@ public class splitScript : MonoBehaviour {
 			proj.health--;
 			if (proj.health <= 2) {
 				for (int i = 0; i < 4; i++) {
-					GameObject tempShield = Instantiate(Resources.Load<GameObject>("Prefabs/Proj3"));
-					tempShield.transform.position = gameObject.transform.position;
+					GameControl.instance.spawnProj (3, gameObject.transform.position);
 				}
 				GameObject.Destroy (gameObject);
 				GameControl.instance.score++;
