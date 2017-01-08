@@ -6,6 +6,7 @@ public class MoveGame : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	public float moveSpeed;
 	Matrix4x4 calibrationMatrix;
+	public bool onPhone = true;
 
 	void calibrateAccelerometer(){
 		Vector3 wantedDeadZone = Input.acceleration;;
@@ -29,19 +30,19 @@ public class MoveGame : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-
-        //float v = Input.GetAxisRaw("Vertical");
-		//float h = Input.GetAxisRaw("Horizontal");
-		//Vector3 dir = Vector3.zero;
-		//dir.x = Input.acceleration.y;
-		//dir.z = Input.acceleration.x;
-		Vector3 dir = getAccelerometer(Input.acceleration);
-		if (dir.sqrMagnitude > 1)
-			dir.Normalize();
-		//gameObject.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 0.01f, gameObject.transform.localPosition.y + 0.01f, gameObject.transform.localPosition.z);
+		if (onPhone) {
+			Vector3 dir = getAccelerometer (Input.acceleration);
+			if (dir.sqrMagnitude > 1)
+				dir.Normalize ();
+			//gameObject.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 0.01f, gameObject.transform.localPosition.y + 0.01f, gameObject.transform.localPosition.z);
 
 
-		rb2d.velocity = new Vector2 (45*dir.x,45*dir.y);
+			rb2d.velocity = new Vector2 (45 * dir.x, 45 * dir.y);
+		} else {
+			float v = Input.GetAxisRaw("Vertical");
+			float h = Input.GetAxisRaw("Horizontal");
+			rb2d.velocity = new Vector2 (10*h, 10*v);
+		}
 
     }
 }
