@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileScript : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	private CircleCollider2D projCol;
-	private int minSpeed, maxSpeed;
+	private float minSpeed, maxSpeed;
 	public int health;
 
 	// Use this for initialization
@@ -13,7 +13,7 @@ public class ProjectileScript : MonoBehaviour {
 		health = 1;
 		rb2d = GetComponent<Rigidbody2D> ();
 		projCol = GetComponent<CircleCollider2D> ();
-		minSpeed = 1;
+		minSpeed = -10;
 		maxSpeed = 10;
 		rb2d.velocity = new Vector2(Random.Range(minSpeed, maxSpeed), Random.Range(minSpeed, maxSpeed));
 	}
