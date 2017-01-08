@@ -14,6 +14,7 @@ public class GameControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		if (instance == null) {
 			instance = this;
 		} else if (instance != this) {
