@@ -17,9 +17,7 @@ public class SpawnProj : MonoBehaviour
     {
 		if(GameControl.instance.numProj < maxProj)
 		{
-            GameObject proj = Resources.Load<GameObject>("Prefabs/Proj" + Random.Range(0, 5));
-            Vector3 position = prefab.transform.position;
-            GameControl.instance.spawnProj (Random.Range(0,5), position);
+			GameControl.instance.spawnProj (Random.Range(0,5), prefab.transform.position);
         }
     }
 }
