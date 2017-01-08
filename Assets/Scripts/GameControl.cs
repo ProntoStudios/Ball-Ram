@@ -27,7 +27,7 @@ public class GameControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (score / (level * 5) > 0) {
+		if (score / (level * 3) > 0) {
 			level++;
 		}
 		if(Input.GetMouseButtonDown (0)){
@@ -36,8 +36,9 @@ public class GameControl : MonoBehaviour {
 	}
 
 	private void OnGUI(){
-		GUI.Label (new Rect (10, 10, 100, 20), "Score: " + score);
-		GUI.Label (new Rect (10, 30, 100, 20), "Health: " + PlayerScript.instance.health);
+		GUI.Label (new Rect (10, 10, 100, 30), "Level: " + level);
+		GUI.Label (new Rect (10, 40, 100, 30), "Score: " + score);
+		GUI.Label (new Rect (10, 70, 100, 30), "Health: " + PlayerScript.instance.health);
 
 	}
 

@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour {
 		playerCol = GetComponent<CircleCollider2D> ();
 
 		health = 3;
-		numShield = 3;
+		numShield = 5;
 		float shieldDist = 360f / numShield;
 
 		for (int i = 0; i < numShield; i++) {
