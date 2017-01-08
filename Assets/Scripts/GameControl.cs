@@ -19,7 +19,7 @@ public class GameControl : MonoBehaviour {
 		}
 		score = 0;
 		numProj = 0;
-		level = 0;
+		level = 1;
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
 
@@ -27,6 +27,9 @@ public class GameControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (score / (level * 5) > 0) {
+			level++;
+		}
 		if(Input.GetMouseButtonDown (0)){
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 		}

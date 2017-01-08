@@ -11,7 +11,11 @@ public class SpawnProj : MonoBehaviour
     {
         InvokeRepeating("CreateObstacle", 1.5f, 1.5f);
 	}
-	
+
+	void Update () {
+
+
+	}
 	void CreateObstacle()
     {
 		if(GameControl.instance.numProj < maxProj)
