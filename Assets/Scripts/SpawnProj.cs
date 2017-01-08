@@ -15,8 +15,6 @@ public class SpawnProj : MonoBehaviour
 	void CreateObstacle()
     {
 		if(GameControl.instance.numProj < maxProj)
-		{
-			GameControl.instance.spawnProj (Random.Range(0,5), gameObject.transform.position);
-        }
+			GameControl.instance.spawnProj (Random.Range(0,5), gameObject.transform.position);// + new Vector3(4, 0, 0));
     }
 }
