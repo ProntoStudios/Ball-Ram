@@ -27,7 +27,9 @@ public class PlayerScript : MonoBehaviour {
 		float shieldDist = 360f / numShield;
 
 		for (int i = 0; i < numShield; i++) {
-			GameObject tempShield = Instantiate(Resources.Load<GameObject>("Prefabs/ShieldMain"));
+			Vector3 newShieldPos = transform.position;
+			newShieldPos.y += 3;
+			GameObject tempShield = Instantiate(Resources.Load<GameObject>("Prefabs/ShieldMain"), newShieldPos, Quaternion.Euler(0, 0, 0));
 			tempShield.transform.parent = gameObject.transform;
 			tempShield.name = "ShieldMain" + i.ToString ();
 

@@ -8,6 +8,7 @@ public class GameControl : MonoBehaviour {
 	public int score;
 	public int numProj;
 	public List<GameObject> projArr;
+	public int level;
 
 	// Use this for initialization
 	void Awake () {
@@ -18,6 +19,7 @@ public class GameControl : MonoBehaviour {
 		}
 		score = 0;
 		numProj = 0;
+		level = 0;
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
 
