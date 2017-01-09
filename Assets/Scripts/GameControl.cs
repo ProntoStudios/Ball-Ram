@@ -39,7 +39,7 @@ public class GameControl : MonoBehaviour {
 		if (numDead / (level * 3) > 0) {
 			level++;
 		}
-		if(Input.GetMouseButtonDown (0)){
+		if(Input.touchCount == 3){
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 		}
 	}
