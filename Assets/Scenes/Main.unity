@@ -312,6 +312,8 @@ MonoBehaviour:
   numProj: 0
   projArr: []
   level: 0
+  numDead: 0
+  numDeadInRow: 0
 --- !u!4 &940175333
 Transform:
   m_ObjectHideFlags: 0
