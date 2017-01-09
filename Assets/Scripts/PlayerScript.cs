@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 	public static PlayerScript instance;
-
+    private int powerUp;
 	private Rigidbody2D rb2d;
 	private CircleCollider2D playerCol;
 	public int health;
@@ -12,6 +12,12 @@ public class PlayerScript : MonoBehaviour {
 	public List<GameObject> shieldArr;
 	private Vector3 zAxis = new Vector3 (0,0,1);
 
+
+    public int PowerUp
+    {
+        get { return powerUp; }
+        set { powerUp = value; }
+    }
 	// Use this for initialization
 	void Start () {
 		if (instance == null) {
@@ -23,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
 		playerCol = GetComponent<CircleCollider2D> ();
 
 		health = 3;
-		numShield = 5;
+		numShield = 12;
 		float shieldDist = 360f / numShield;
 
 		for (int i = 0; i < numShield; i++) {
