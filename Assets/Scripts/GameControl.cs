@@ -20,7 +20,6 @@ public class GameControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		if (instance == null) {
 			instance = this;
 		} else if (instance != this) {
@@ -30,6 +29,8 @@ public class GameControl : MonoBehaviour {
 		numProj = 0;
 		level = 1;
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+		Application.targetFrameRate = 60;
 
 
 	}

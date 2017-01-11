@@ -6,7 +6,7 @@ public class MoveGame : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	public float moveSpeed;
 	Matrix4x4 calibrationMatrix;
-	public bool onPhone = true;
+	public bool onPhone = false;
 
 	void calibrateAccelerometer(){
 		Vector3 wantedDeadZone = Input.acceleration;;
@@ -43,6 +43,7 @@ public class MoveGame : MonoBehaviour {
 			float h = Input.GetAxisRaw("Horizontal");
 			rb2d.velocity = new Vector2 (10*h, 10*v);
 		}
+		rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(10, 10)));
 
     }
 }
