@@ -11,6 +11,9 @@ public class JoystickScript : MonoBehaviour {
 	Vector2 joystickCenter;
 	static Vector2 centerPos = new Vector2 (Screen.height/2f, Screen.width/2f);
 	static float joystickScaler = Screen.width / 10f;
+	static Vector2 joystickScalerVec = new Vector2(joystickScaler, joystickScaler);
+	static Vector2 joystickScalerVecNeg = new Vector2(-joystickScaler, -joystickScaler);
+	static Vector2 joystickScalerVecInv = new Vector2(1f/joystickScaler, 1f/joystickScaler);
 	bool isTouching = false;
 	// Use this for initialization
 	void Start () {
@@ -40,14 +43,14 @@ public class JoystickScript : MonoBehaviour {
 				//TODO: LIMIT MAGNITUTE;
 				if (movePos.magnitude >= joystickScaler) {
 					movePos.Normalize ();
-					movePos.Scale (new Vector2(joystickScaler, joystickScaler));
+					movePos.Scale (joystickScalerVec);
 				}
-				movePos.Scale (new Vector2(1f/joystickScaler, 1f/joystickScaler));
+				movePos.Scale (joystickScalerVecInv);
 			} else {
 				//creates a shifted jouystick
 				if (relTouchPos.magnitude > joystickScaler) {
 					isTouching = true;
-					joystickOffset = Vector2.Scale(relTouchPos.normalized, (new Vector2 (-joystickScaler, -joystickScaler)));
+					joystickOffset = Vector2.Scale(relTouchPos.normalized, (joystickScalerVecNeg));
 					joystickCenter = curTouchPos + joystickOffset;
 					gameObject.transform.position = joystickCenter;
 				}

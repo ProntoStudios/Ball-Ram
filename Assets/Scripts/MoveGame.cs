@@ -43,7 +43,7 @@ public class MoveGame : MonoBehaviour {
 			float h = Input.GetAxisRaw("Horizontal");
 			rb2d.velocity = new Vector2 (10*h, 10*v);
 		}
-		rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(10, 10)));
+		rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(11, 11)));
 
     }
 }
