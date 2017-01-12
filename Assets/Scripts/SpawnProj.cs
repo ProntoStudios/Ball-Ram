@@ -19,7 +19,7 @@ public class SpawnProj : MonoBehaviour
 	}
 	void CreateObstacle()
 	{
-		maxProj = GameControl.instance.level;
+		maxProj = GameControl.instance.level + 5;
 		if (GameControl.instance.numProj < maxProj){
 			if (maxProjType < 5) {
 				maxProjType = GameControl.instance.level / 3 + 1;

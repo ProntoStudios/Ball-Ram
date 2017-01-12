@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour {
 		rb2d = GetComponent<Rigidbody2D> ();
 		playerCol = GetComponent<CircleCollider2D> ();
 
-		health = 3;
+		health = 1;
 		numShield = 5;
 		float shieldDist = 360f / numShield;
 
