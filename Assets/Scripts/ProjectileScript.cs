@@ -26,19 +26,11 @@ public class ProjectileScript : MonoBehaviour {
 			health--;
 			Debug.Log("Ball HP: " + health);
 			if (health < 1) {
-				GameObject.Destroy (gameObject);
-				GameControl.instance.numDead++;
-				GameControl.instance.numDeadInRow++;
-				GameControl.instance.score += GameControl.instance.numDeadInRow;
-				GameControl.instance.numProj--;
+				GameControl.instance.deleteProj (gameObject);
 			}
 		}
 		else if (node.gameObject.name == "Player") {
-			GameObject.Destroy (gameObject);
-			GameControl.instance.numDead++;
-			GameControl.instance.numDeadInRow++;
-			GameControl.instance.score += GameControl.instance.numDeadInRow;
-			GameControl.instance.numProj--;
+			GameControl.instance.deleteProj (gameObject);
 		}
 	}
 }

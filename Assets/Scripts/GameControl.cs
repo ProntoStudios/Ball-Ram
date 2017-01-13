@@ -66,8 +66,14 @@ public class GameControl : MonoBehaviour {
 		numProj++;
 	}
 
-	public void deleteProj(int arrNum){
+	public void deleteProj(GameObject other){
+		numDead++;
+		numDeadInRow++;
+		score += numDeadInRow;
+		numProj--;
 
+		projArr.Remove (other);
+		GameControl.Destroy (other);
 	}
 
 	public void spawnPowerUp(int type)
