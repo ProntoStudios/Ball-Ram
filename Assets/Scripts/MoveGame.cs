@@ -31,19 +31,19 @@ public class MoveGame : MonoBehaviour {
 	
 	void FixedUpdate () {
 		if (onPhone) {
+			/* 
+			 * MOVING WITH ACCELEROMETER
 			Vector3 dir = getAccelerometer (Input.acceleration);
 			if (dir.sqrMagnitude > 1)
 				dir.Normalize ();
-			//gameObject.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 0.01f, gameObject.transform.localPosition.y + 0.01f, gameObject.transform.localPosition.z);
-
-
 			rb2d.velocity = new Vector2 (45 * dir.x, 45 * dir.y);
+			*/
+			rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(11, 11)));
 		} else {
 			float v = Input.GetAxisRaw("Vertical");
 			float h = Input.GetAxisRaw("Horizontal");
 			rb2d.velocity = new Vector2 (10*h, 10*v);
 		}
-		rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(11, 11)));
 
     }
 }
