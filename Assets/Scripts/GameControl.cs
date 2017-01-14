@@ -13,6 +13,7 @@ public class GameControl : MonoBehaviour {
 	public int level;
 	public int numDead = 0;
 	public int numDeadInRow = 0;
+	public int coinTot = 0;
     
 	public float rotateSpeed = 3f;
 

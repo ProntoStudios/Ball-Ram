@@ -7,6 +7,7 @@ TagManager:
   - Shield
   - Projectile
   - ProjDead
+  - Coin
   layers:
   - Default
   - TransparentFX
