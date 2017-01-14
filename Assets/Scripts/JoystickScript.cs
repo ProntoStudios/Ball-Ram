@@ -89,8 +89,10 @@ public class JoystickScript : MonoBehaviour {
 		*/
 
 	}
+	/*
 	private void OnGUI(){
 		GUI.Label (new Rect (10, 150, 100, 50), "relPos: " + relTouchPos);
 		GUI.Label (new Rect (10, 100, 100, 50), "Move: " + movePos);	
 	}
+	*/
 }		
