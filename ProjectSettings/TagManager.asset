@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shield
   - Projectile
+  - ProjDead
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileScript : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	private CircleCollider2D projCol;
+    private Transform trans;
 	private float minSpeed, maxSpeed;
 	public int health;
 
@@ -13,6 +14,7 @@ public class ProjectileScript : MonoBehaviour {
 		health = 1;
 		rb2d = GetComponent<Rigidbody2D> ();
 		projCol = GetComponent<CircleCollider2D> ();
+        trans = GetComponent<Transform>();
 		minSpeed = -10;
 		maxSpeed = 10;
 		rb2d.velocity = new Vector2(Random.Range(minSpeed, maxSpeed), Random.Range(minSpeed, maxSpeed));
@@ -25,12 +27,26 @@ public class ProjectileScript : MonoBehaviour {
 		if (node.gameObject.tag == "Shield") {
 			health--;
 			Debug.Log("Ball HP: " + health);
+            gameObject.tag = "ProjDead";
 			if (health < 1) {
-				GameControl.instance.deleteProj (gameObject);
+                rb2d.velocity = new Vector3(0, 0, 0);
+                StartCoroutine(killAnimation());
+				
 			}
 		}
 		else if (node.gameObject.name == "Player") {
 			GameControl.instance.deleteProj (gameObject);
 		}
 	}
+
+    private IEnumerator killAnimation()
+    {
+        while (trans.localScale.x > 0 && trans.localScale.y > 0 && trans.localScale.z > 0)
+        {
+            trans.localScale = new Vector3(trans.localScale.x - 0.1f, trans.localScale.y - 0.1f, trans.localScale.z - 0.1f);
+            yield return new WaitForSeconds(0.02f);
+            
+        }
+        GameControl.instance.deleteProj(gameObject);
+    }
 }

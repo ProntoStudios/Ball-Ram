@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour {
 	public static GameControl instance;
@@ -12,11 +13,15 @@ public class GameControl : MonoBehaviour {
 	public int level;
 	public int numDead = 0;
 	public int numDeadInRow = 0;
+    
 	public float rotateSpeed = 3f;
 
+    public Text scoreText;
+    public Text levelText;
+        public int maxfont = 72;
+        public int minFont = 10;
 
-
-	public List<GameObject> powArr;
+    public List<GameObject> powArr;
 	private float minX, maxX, minY, maxY;
 	public int nmbrOfPowerUps;
 
@@ -33,26 +38,25 @@ public class GameControl : MonoBehaviour {
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		Application.targetFrameRate = 60;
-
-
+        levelText.text = "";
+        levelText.fontSize = minFont;
+        setScoreText();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (numDead / (level * 3) > 0) {
-			level++;
+            level++;
+            StartCoroutine(levelPopup());
+            numDead /= 2;
+			
 		}
 		if(Input.touchCount == 3){
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 		}
 	}
 
-	private void OnGUI(){
-		GUI.Label (new Rect (10, 10, 100, 30), "Level: " + level);
-		GUI.Label (new Rect (10, 40, 100, 30), "Score: " + score);
-		GUI.Label (new Rect (10, 70, 100, 30), "Health: " + PlayerScript.instance.health);
 
-	}
 
 
 	public void PlayerDied(){
@@ -70,6 +74,7 @@ public class GameControl : MonoBehaviour {
 		numDead++;
 		numDeadInRow++;
 		score += numDeadInRow;
+        setScoreText();
 		numProj--;
 
 		projArr.Remove (other);
@@ -85,5 +90,23 @@ public class GameControl : MonoBehaviour {
 		numPow++;
 
 	}
+
+    public void setScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    IEnumerator levelPopup()
+    {
+        levelText.text = "LEVEL " + level.ToString();
+        
+        for(int i =0; i < maxfont-minFont; i++)
+        {
+            levelText.fontSize++;
+            yield return new WaitForSeconds(0.01f);
+        }
+        levelText.text = "";
+        levelText.fontSize = minFont;
+    }
 
 }

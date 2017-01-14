@@ -25,6 +25,7 @@ public class powerUp : MonoBehaviour {
 
             collision.gameObject.GetComponent<PlayerScript>().PowerUp = powerUpNumber;
             GameObject.Destroy(gameObject);
+
         }
     }
 }
