@@ -470,29 +470,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 212331561240380674, guid: c33c2efacde896e499fa90280a044205,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212331561240380674, guid: c33c2efacde896e499fa90280a044205,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212331561240380674, guid: c33c2efacde896e499fa90280a044205,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.25517225
-      objectReference: {fileID: 0}
-    - target: {fileID: 1577461894426122, guid: c33c2efacde896e499fa90280a044205, type: 2}
-      propertyPath: m_TagString
-      value: Spawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 1577461894426122, guid: c33c2efacde896e499fa90280a044205, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c33c2efacde896e499fa90280a044205, type: 2}
   m_IsPrefabParent: 0
@@ -955,7 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  onPhone: 1
+  onPhone: 0
 --- !u!1 &1473716784
 GameObject:
   m_ObjectHideFlags: 0

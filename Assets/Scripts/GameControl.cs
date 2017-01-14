@@ -107,10 +107,12 @@ public class GameControl : MonoBehaviour {
     IEnumerator levelPopup()
     {
         levelText.text = "LEVEL " + level.ToString();
-        
+		float alphaIncrement = 1f/(maxfont - minFont);
+
         for(int i =0; i < maxfont-minFont; i++)
         {
             levelText.fontSize++;
+			levelText.color = new Color(1f,1f,1f,1f - alphaIncrement*i);
             yield return new WaitForSeconds(0.01f);
         }
         levelText.text = "";
