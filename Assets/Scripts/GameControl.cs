@@ -14,6 +14,7 @@ public class GameControl : MonoBehaviour {
 	public int numDead = 0;
 	public int numDeadInRow = 0;
 	public int coinTot = 0;
+	public int coinSpawnOdds = 3; // 1 in coinSpawnOdds
     
 	public float rotateSpeed = 3f;
 
@@ -77,7 +78,13 @@ public class GameControl : MonoBehaviour {
 		score += numDeadInRow;
         setScoreText();
 		numProj--;
-
+		if(Random.Range(0,coinSpawnOdds) == 0){
+			for (int i = 0; i < Random.Range (1, 3); i++) {
+				GameObject tempCoin = Instantiate(Resources.Load<GameObject>("Prefabs/Coin"));
+				tempCoin.transform.position = other.transform.position;
+				tempCoin.GetComponent<Rigidbody2D> ().velocity = new Vector2 (Random.Range(-5, 5), Random.Range(-5, 5));
+			}
+		}
 		projArr.Remove (other);
 		GameControl.Destroy (other);
 	}

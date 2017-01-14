@@ -5,9 +5,11 @@ using UnityEngine;
 public class CoinScript : MonoBehaviour {
 	private int value;
 	private Transform trans;
+	private Rigidbody2D rb2d;
 	// Use this for initialization
 	void Start () {
 		trans = GetComponent<Transform>();
+		rb2d = GetComponent<Rigidbody2D> ();
 		value = Random.Range (1, 10);
 		StartCoroutine(killClock ());
 	}
@@ -24,8 +26,10 @@ public class CoinScript : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D node){
 		if (node.name == "Player") {
 			GameControl.instance.coinTot += value;
-			delete();
+			delete ();
 			Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
+		} else if (node.tag == "Wall") {
+			rb2d.velocity = Vector2.zero;
 		}
 	}
 	private IEnumerator killAnimation()
