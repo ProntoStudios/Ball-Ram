@@ -6,15 +6,16 @@ public class SpawnProj : MonoBehaviour
 {
     public int maxProj = 30;
 	private int maxProjType;
+	private float pauseTime = 1.3f;
 
     // Use this for initialization
 	void Start ()
     {
-        InvokeRepeating("CreateObstacle", 1.5f, 1.5f);
+		StartCoroutine(ProjSpawner());
 	}
 
 	void Update () {
-
+		
 
 	}
 	void CreateObstacle()
@@ -30,4 +31,11 @@ public class SpawnProj : MonoBehaviour
 			GameControl.instance.spawnProj (Random.Range(0,maxProjType), gameObject.transform.position);// + new Vector3(4, 0, 0));
 		}
     }
+	IEnumerator ProjSpawner()
+	{
+		while (true) {
+			yield return new WaitForSeconds (pauseTime);
+			CreateObstacle ();
+		}
+	}
 }

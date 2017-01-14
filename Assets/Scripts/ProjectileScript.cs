@@ -26,7 +26,6 @@ public class ProjectileScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Shield") {
 			health--;
-			Debug.Log("Ball HP: " + health);
             gameObject.tag = "ProjDead";
 			if (health < 1) {
                 rb2d.velocity = new Vector3(0, 0, 0);
