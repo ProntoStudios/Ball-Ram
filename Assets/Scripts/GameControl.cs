@@ -24,7 +24,7 @@ public class GameControl : MonoBehaviour {
         public int minFont = 10;
 
     public List<GameObject> powArr;
-	private float minX, maxX, minY, maxY;
+	private float minX = -25, maxX = 25, minY = -15, maxY = 15;
 	public int nmbrOfPowerUps;
 
 	// Use this for initialization
@@ -34,6 +34,8 @@ public class GameControl : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
+
+
 		score = 0;
 		numProj = 0;
 		level = 1;
@@ -51,11 +53,14 @@ public class GameControl : MonoBehaviour {
             level++;
             StartCoroutine(levelPopup());
             numDead /= 2;
+            spawnPowerUp(0);
 			
 		}
 		if(Input.touchCount == 3){
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 		}
+
+        
 	}
 
 
@@ -91,6 +96,7 @@ public class GameControl : MonoBehaviour {
 
 	public void spawnPowerUp(int type)
 	{
+
 		GameObject tempPwrUp = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUp"));
 		tempPwrUp.transform.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
 		tempPwrUp.GetComponent<powerUp>().PowerUpNumber = Random.Range(0, nmbrOfPowerUps-1);
