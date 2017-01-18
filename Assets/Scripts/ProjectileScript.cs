@@ -26,12 +26,11 @@ public class ProjectileScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Shield") {
 			health--;
-            gameObject.tag = "ProjDead";
-			if (health < 1) {
-                rb2d.velocity = new Vector3(0, 0, 0);
-                StartCoroutine(killAnimation());
-				
-			}
+            if(health < 1)
+            {
+                killProj();
+            }
+			
 		}
 		else if (node.gameObject.name == "Player") {
 			GameControl.instance.deleteProj (gameObject);
@@ -47,5 +46,14 @@ public class ProjectileScript : MonoBehaviour {
             
         }
         GameControl.instance.deleteProj(gameObject);
+    }
+
+    public void killProj()
+    {
+        
+            gameObject.tag = "ProjDead";
+            rb2d.velocity = new Vector3(0, 0, 0);
+            StartCoroutine(killAnimation());
+
     }
 }

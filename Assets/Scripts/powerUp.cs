@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class powerUp : MonoBehaviour {
 
+    
     private int powerUpNumber;
     private Rigidbody2D rb;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+        
 	}
+
 	
 	// Update is called once per frame
 	public int PowerUpNumber
@@ -18,12 +21,13 @@ public class powerUp : MonoBehaviour {
         set { powerUpNumber = value; }
     }
 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.name == "Player")
         {
-
-            collision.gameObject.GetComponent<PlayerScript>().PowerUp = powerUpNumber;
+            powerUpNumber = Random.Range(0, 6);
+            collision.gameObject.GetComponent<PlayerScript>().activatePowerUp(powerUpNumber);
             GameObject.Destroy(gameObject);
 
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour {
 	public static PlayerScript instance;
@@ -11,15 +12,13 @@ public class PlayerScript : MonoBehaviour {
 	private int numShield;
 	public List<GameObject> shieldArr;
 	private Vector3 zAxis = new Vector3 (0,0,1);
+    public Image powUpRec;
+    private MoveGame moveGame;
 
+    public enum powerups { heal, speedUp, barrier, moreShields, nuke };
 
-    public int PowerUp
-    {
-        get { return powerUp; }
-        set { powerUp = value; }
-    }
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		if (instance == null) {
 			instance = this;
 		} else if (instance != this) {
@@ -27,6 +26,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 		rb2d = GetComponent<Rigidbody2D> ();
 		playerCol = GetComponent<CircleCollider2D> ();
+        moveGame = GetComponent<MoveGame>();
 
 		health = 1;
 		numShield = 3;
@@ -71,4 +71,56 @@ public class PlayerScript : MonoBehaviour {
 			GameControl.instance.numDeadInRow = 0;
 		}
 	}
+    //enum powerups { heal, speedUp, barrier, moreShields, nuke};
+    public void activatePowerUp(int powerUpNmbr)
+    {
+        Debug.Log(powerUpNmbr);
+        switch (powerUpNmbr)
+        {
+            case (int)powerups.heal: //HEAL
+                health++;
+                break;
+
+            case (int)powerups.speedUp: //speedUp
+                StartCoroutine(speedUpForSeconds(10));
+                break;
+
+            case (int)powerups.barrier: //barrier
+                //shield powerup stuff here
+                break;
+
+            case (int)powerups.moreShields:
+                //wilsons stuff
+                break;
+
+            case (int)powerups.nuke:
+                nuke();
+                break;
+            
+
+        }
+    }
+
+    IEnumerator speedUpForSeconds(int seconds)
+    {
+        moveGame.moveSpeed *= 1.5f;
+        yield return new WaitForSeconds(seconds);
+        moveGame.moveSpeed /= 1.5f;
+    }
+
+    IEnumerator barrier(int seconds)
+    {
+        
+        yield return new WaitForSeconds(seconds);
+        moveGame.moveSpeed /= 1.5f;
+    }
+
+    void nuke()
+    {
+        for(int i = 0; i < GameControl.instance.projArr.Count; i++)
+        {
+            GameControl.instance.projArr[i].GetComponent<ProjectileScript>().killProj();
+        }
+    }
+
 }

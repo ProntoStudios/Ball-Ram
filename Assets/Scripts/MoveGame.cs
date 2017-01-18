@@ -25,7 +25,7 @@ public class MoveGame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-		moveSpeed = 0.1f;
+		moveSpeed = 11f;
 		calibrateAccelerometer ();
 	}
 	
@@ -38,11 +38,11 @@ public class MoveGame : MonoBehaviour {
 				dir.Normalize ();
 			rb2d.velocity = new Vector2 (45 * dir.x, 45 * dir.y);
 			*/
-			rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(11, 11)));
+			rb2d.velocity = Vector2.Scale(JoystickScript.instance.movePos,(new Vector2(moveSpeed, moveSpeed)));
 		} else {
 			float v = Input.GetAxisRaw("Vertical");
 			float h = Input.GetAxisRaw("Horizontal");
-			rb2d.velocity = new Vector2 (10*h, 10*v);
+			rb2d.velocity = new Vector2 (moveSpeed * h, moveSpeed * v);
 		}
 
     }
