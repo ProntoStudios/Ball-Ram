@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -58,10 +61,34 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 
+	public void Save(){
+		BinaryFormatter bf = new BinaryFormatter ();
+		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
+		PlayerData data = new PlayerData ();
 
+		bf.Serialize (file, data);
+		file.Close ();
+	}
 
+	public void Load(){
+		if (File.Exists (Application.persistentDataPath + "/playerInfo.dat")) {
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+			PlayerData data = (PlayerData)bf.Deserialize (file);
+			file.Close ();
+		}
+	}
+
+	[Serializable]
+	class PlayerData{
+
+	}
 
 	public void PlayerDied(){
+		StartCoroutine(waitForRestart ());
+	}
+	IEnumerator waitForRestart(){
+		yield return new WaitForSeconds(3f);
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 	}
 
@@ -78,11 +105,11 @@ public class GameControl : MonoBehaviour {
 		score += numDeadInRow;
         setScoreText();
 		numProj--;
-		if(Random.Range(0,coinSpawnOdds) == 0){
-			for (int i = 0; i < Random.Range (1, 3); i++) {
+		if(UnityEngine.Random.Range(0,coinSpawnOdds) == 0){
+			for (int i = 0; i < UnityEngine.Random.Range (1, 3); i++) {
 				GameObject tempCoin = Instantiate(Resources.Load<GameObject>("Prefabs/Coin"));
 				tempCoin.transform.position = other.transform.position;
-				tempCoin.GetComponent<Rigidbody2D> ().velocity = new Vector2 (Random.Range(-5, 5), Random.Range(-5, 5));
+				tempCoin.GetComponent<Rigidbody2D> ().velocity = new Vector2 (UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5));
 			}
 		}
 		projArr.Remove (other);
@@ -92,8 +119,8 @@ public class GameControl : MonoBehaviour {
 	public void spawnPowerUp(int type)
 	{
 		GameObject tempPwrUp = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUp"));
-		tempPwrUp.transform.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
-		tempPwrUp.GetComponent<powerUp>().PowerUpNumber = Random.Range(0, nmbrOfPowerUps-1);
+		tempPwrUp.transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), UnityEngine.Random.Range(minY, maxY), 0);
+		tempPwrUp.GetComponent<powerUp>().PowerUpNumber = UnityEngine.Random.Range(0, nmbrOfPowerUps-1);
 		powArr.Add(tempPwrUp);
 		numPow++;
 

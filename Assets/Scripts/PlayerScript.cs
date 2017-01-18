@@ -49,6 +49,20 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 		if(health < 1){
 			GameControl.instance.PlayerDied ();
+			rb2d.velocity = Vector2.zero;
+			for (int i = 0; i < 7; i++) {
+				GameObject tempBlob = Instantiate (Resources.Load<GameObject> ("Prefabs/PlayerDeadBlob"), gameObject.transform.position, Quaternion.Euler (0, 0, 0));
+				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-20, 20)/10f, UnityEngine.Random.Range(-20, 20)/10f);
+				int scale = UnityEngine.Random.Range (10, 30);
+				tempBlob.transform.localScale = new Vector3 (scale, scale, 0);
+			}
+
+			MonoBehaviour[] scripts = gameObject.GetComponents<MonoBehaviour>();
+			foreach(MonoBehaviour script in scripts)
+			{
+				script.enabled = false;
+			}
+			gameObject.GetComponent<SpriteRenderer>().enabled = false;
 		}
 	}
 	void OnCollisionEnter2D(Collision2D node){
