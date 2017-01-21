@@ -95,8 +95,9 @@ public class PlayerScript : MonoBehaviour {
             case (int)powerups.nuke:
                 nuke();
                 break;
+
 			case (int)powerups.cash:
-			StartCoroutine(boostCoinOdds(10f));
+				StartCoroutine(boostCoinOdds(10f));
 				break;
             
 

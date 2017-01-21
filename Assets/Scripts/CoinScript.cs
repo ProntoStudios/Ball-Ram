@@ -31,6 +31,7 @@ public class CoinScript : MonoBehaviour {
 			GameControl.instance.coinTot += value;
 			delete ();
 			Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
+			PlayerScript.instance.activatePowerUp (Random.Range (0, 6));
 		} else if (node.tag == "Wall") {
 			rb2d.velocity = Vector2.zero;
 		}

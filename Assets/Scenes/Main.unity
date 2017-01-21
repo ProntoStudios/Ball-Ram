@@ -326,6 +326,7 @@ MonoBehaviour:
   nmbrOfPowerUps: 0
   saveData:
     coinBank: 0
+    initShields: 0
 --- !u!4 &940175333
 Transform:
   m_ObjectHideFlags: 0
@@ -935,7 +936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  onPhone: 0
+  onPhone: 1
 --- !u!1 &1473716784
 GameObject:
   m_ObjectHideFlags: 0
