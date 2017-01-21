@@ -19,7 +19,7 @@ public class GameControl : MonoBehaviour {
 	public int coinTot = 0;
 	public int coinSpawnOdds = 3; // 1 in coinSpawnOdds
     
-	public float rotateSpeed = 2f;
+	public float rotateSpeed = 1.5f;
 
     public Text scoreText;
     public Text levelText;
@@ -45,7 +45,7 @@ public class GameControl : MonoBehaviour {
 		level = 1;
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		Application.targetFrameRate = 60;
+		//Application.targetFrameRate = 60;
         levelText.text = "";
         levelText.fontSize = minFont;
         setScoreText();

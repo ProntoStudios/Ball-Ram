@@ -103,27 +103,56 @@ public class PlayerScript : MonoBehaviour {
 
         }
     }
-	public IEnumerator addShield(){
-		float totDur = 1f;
-		int numFrames = (int)(totDur*60);
+	public IEnumerator addShield(int numLeft, float totDur){
+		if (numLeft <= 0) {
+			yield return new WaitForSeconds (3f);
+			StartCoroutine(delShield (9, 3f/9f));
+		} else {
+			numLeft--;
+			int numFrames = (int)(totDur * 60);
 
-		numShield++;
-		float shieldShift = (360f / (numShield-1)) - (360f / numShield);
-		float deltaShift = shieldShift / (float)numFrames;
+			numShield++;
+			float shieldShift = (360f / (numShield - 1)) - (360f / numShield);
+			float deltaShift = shieldShift / (float)numFrames;
 
 
-		GameObject tempShield = Instantiate(Resources.Load<GameObject>("Prefabs/ShieldMain"), shieldArr[0].transform.position, shieldArr[0].transform.rotation);
-		tempShield.transform.parent = gameObject.transform;
-		tempShield.name = "ShieldMain" + shieldArr.Count.ToString();
-		shieldArr.Add (tempShield);
+			GameObject tempShield = Instantiate (Resources.Load<GameObject> ("Prefabs/ShieldMain"), shieldArr [0].transform.position, shieldArr [0].transform.rotation);
+			tempShield.transform.parent = gameObject.transform;
+			tempShield.name = "ShieldMain" + shieldArr.Count.ToString ();
+			shieldArr.Add (tempShield);
 
-		for (int i = 0; i < numFrames; i++) {
-			for (int j = (shieldArr.Count-1); j >= 0; j--) {
-				shieldArr [j].transform.RotateAround ((Vector3)gameObject.transform.position, zAxis, deltaShift * (shieldArr.Count-1-j));
+			for (int i = 0; i < numFrames; i++) {
+				for (int j = (shieldArr.Count - 1); j >= 0; j--) {
+					shieldArr [j].transform.RotateAround ((Vector3)gameObject.transform.position, zAxis, deltaShift * (shieldArr.Count - 1 - j));
+				}
+				yield return new WaitForSeconds (totDur / (float)numFrames);
 			}
-			yield return new WaitForSeconds (totDur / (float)numFrames);
-		}
 
+			StartCoroutine(addShield (numLeft, totDur));
+		}
+	}
+	public IEnumerator delShield(int numLeft, float totDur){ 
+		if (numLeft <= 0) {
+
+		} else {
+			numLeft--;
+			int numFrames = (int)(totDur * 60);
+
+			numShield--;
+			float shieldShift = (360f / (numShield)) - (360f / (numShield+1));
+			float deltaShift = shieldShift / (float)numFrames;
+
+			for (int i = 0; i < numFrames; i++) {
+				for (int j = (shieldArr.Count - 1); j >= 0; j--) {
+					shieldArr [j].transform.RotateAround ((Vector3)gameObject.transform.position, zAxis, deltaShift * j);
+				}
+				yield return new WaitForSeconds (totDur / (float)numFrames);
+			}
+
+			GameControl.Destroy(shieldArr [shieldArr.Count - 1]);
+			shieldArr.RemoveAt (shieldArr.Count - 1);
+			StartCoroutine(delShield (numLeft, totDur));
+		}
 	}
     IEnumerator speedUpForSeconds(int seconds)
     {
