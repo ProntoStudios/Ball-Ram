@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour {
 	private Vector3 zAxis = new Vector3 (0,0,1);
     public Image powUpRec;
     private MoveGame moveGame;
+	private int totShieldAdding = 0;
 
     public enum powerups { heal, speedUp, barrier, moreShields, nuke };
 
@@ -48,7 +49,6 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(health < 1){
-			GameControl.instance.PlayerDied ();
 			rb2d.velocity = Vector2.zero;
 			for (int i = 0; i < 7; i++) {
 				GameObject tempBlob = Instantiate (Resources.Load<GameObject> ("Prefabs/PlayerDeadBlob"), gameObject.transform.position, Quaternion.Euler (0, 0, 0));
@@ -63,6 +63,9 @@ public class PlayerScript : MonoBehaviour {
 				script.enabled = false;
 			}
 			gameObject.GetComponent<SpriteRenderer>().enabled = false;
+			gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+			GameControl.instance.PlayerDied ();
 		}
 	}
 	void OnCollisionEnter2D(Collision2D node){
@@ -100,7 +103,28 @@ public class PlayerScript : MonoBehaviour {
 
         }
     }
+	public IEnumerator addShield(){
+		float totDur = 1f;
+		int numFrames = (int)(totDur*60);
 
+		numShield++;
+		float shieldShift = (360f / (numShield-1)) - (360f / numShield);
+		float deltaShift = shieldShift / (float)numFrames;
+
+
+		GameObject tempShield = Instantiate(Resources.Load<GameObject>("Prefabs/ShieldMain"), shieldArr[0].transform.position, shieldArr[0].transform.rotation);
+		tempShield.transform.parent = gameObject.transform;
+		tempShield.name = "ShieldMain" + shieldArr.Count.ToString();
+		shieldArr.Add (tempShield);
+
+		for (int i = 0; i < numFrames; i++) {
+			for (int j = (shieldArr.Count-1); j >= 0; j--) {
+				shieldArr [j].transform.RotateAround ((Vector3)gameObject.transform.position, zAxis, deltaShift * (shieldArr.Count-1-j));
+			}
+			yield return new WaitForSeconds (totDur / (float)numFrames);
+		}
+
+	}
     IEnumerator speedUpForSeconds(int seconds)
     {
         moveGame.moveSpeed *= 1.5f;

@@ -19,7 +19,7 @@ public class GameControl : MonoBehaviour {
 	public int coinTot = 0;
 	public int coinSpawnOdds = 3; // 1 in coinSpawnOdds
     
-	public float rotateSpeed = 3f;
+	public float rotateSpeed = 2f;
 
     public Text scoreText;
     public Text levelText;
@@ -30,6 +30,7 @@ public class GameControl : MonoBehaviour {
 	private float minX = -25, maxX = 25, minY = -15, maxY = 15;
 	public int nmbrOfPowerUps;
 
+	public PlayerData saveData;
 	// Use this for initialization
 	void Awake () {
 		if (instance == null) {
@@ -48,6 +49,10 @@ public class GameControl : MonoBehaviour {
         levelText.text = "";
         levelText.fontSize = minFont;
         setScoreText();
+
+
+		//save file stuff
+		Load();
 	}
 
 	// Update is called once per frame
@@ -69,9 +74,10 @@ public class GameControl : MonoBehaviour {
 	public void Save(){
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
-		PlayerData data = new PlayerData ();
 
-		bf.Serialize (file, data);
+		saveData.coinBank += coinTot;
+
+		bf.Serialize (file, saveData);
 		file.Close ();
 	}
 
@@ -79,13 +85,17 @@ public class GameControl : MonoBehaviour {
 		if (File.Exists (Application.persistentDataPath + "/playerInfo.dat")) {
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
-			PlayerData data = (PlayerData)bf.Deserialize (file);
+			saveData = (PlayerData)bf.Deserialize (file);
 			file.Close ();
+		} else {
+			saveData.coinBank = 0;
 		}
+		Debug.Log ("coinBank: " + saveData.coinBank.ToString());
 	}
 
 	[Serializable]
-	class PlayerData{
+	public class PlayerData{
+		public long coinBank;
 
 	}
 
@@ -94,6 +104,8 @@ public class GameControl : MonoBehaviour {
 	}
 	IEnumerator waitForRestart(){
 		yield return new WaitForSeconds(3f);
+		Save ();
+
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 	}
 

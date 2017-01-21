@@ -51,9 +51,10 @@ public class ProjectileScript : MonoBehaviour {
     public void killProj()
     {
         
-            gameObject.tag = "ProjDead";
-            rb2d.velocity = new Vector3(0, 0, 0);
-            StartCoroutine(killAnimation());
+        gameObject.tag = "ProjDead";
+        rb2d.velocity = new Vector3(0, 0, 0);
+        StartCoroutine(killAnimation());
+
 
     }
 }

@@ -6,11 +6,14 @@ public class CoinScript : MonoBehaviour {
 	private int value;
 	private Transform trans;
 	private Rigidbody2D rb2d;
+	public int coinValMin = 1;
+	public int coinValMax = 3;
+
 	// Use this for initialization
 	void Start () {
 		trans = GetComponent<Transform>();
 		rb2d = GetComponent<Rigidbody2D> ();
-		value = Random.Range (1, 10);
+		value = Random.Range (coinValMin, coinValMax);
 		StartCoroutine(killClock ());
 	}
 	
@@ -47,6 +50,7 @@ public class CoinScript : MonoBehaviour {
 			return;
 		} else {
 			GameObject.Destroy (gameObject);
+			GameControl.instance.coinTot += value;
 		}
 	}
 }
