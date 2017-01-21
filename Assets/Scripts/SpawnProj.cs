@@ -8,8 +8,11 @@ public class SpawnProj : MonoBehaviour
 	private int maxProjType;
 	private float pauseTime = 1.3f;
 
+    public float spawnXOffset = 0.0f;
+    public float spawnYOffset = 0.0f;
+
     // Use this for initialization
-	void Start ()
+    void Start ()
     {
 		StartCoroutine(ProjSpawner());
 	}
@@ -28,7 +31,9 @@ public class SpawnProj : MonoBehaviour
 			if (maxProjType > 5) {
 				maxProjType = 5;
 			}
-			GameControl.instance.spawnProj (Random.Range(0,maxProjType), gameObject.transform.position);// + new Vector3(4, 0, 0));
+
+            Vector3 spawnPosition = gameObject.transform.position + new Vector3(spawnXOffset, spawnYOffset);
+			GameControl.instance.spawnProj (Random.Range(0,maxProjType), spawnPosition);// + new Vector3(4, 0, 0));
 		}
     }
 	IEnumerator ProjSpawner()
