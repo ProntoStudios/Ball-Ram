@@ -31,7 +31,7 @@ public class CoinScript : MonoBehaviour {
 			GameControl.instance.coinTot += value;
 			delete ();
 			Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
-			PlayerScript.instance.StartCoroutine (PlayerScript.instance.addShield (9, 2f/9f));
+			PlayerScript.instance.StartCoroutine (PlayerScript.instance.addShield (12-GameControl.instance.saveData.initShields, 2f/(float)(12-GameControl.instance.saveData.initShields)));
 		} else if (node.tag == "Wall") {
 			rb2d.velocity = Vector2.zero;
 		}

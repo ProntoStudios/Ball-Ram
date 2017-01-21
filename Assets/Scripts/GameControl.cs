@@ -76,7 +76,6 @@ public class GameControl : MonoBehaviour {
 		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
 
 		saveData.coinBank += coinTot;
-
 		bf.Serialize (file, saveData);
 		file.Close ();
 	}
@@ -89,6 +88,7 @@ public class GameControl : MonoBehaviour {
 			file.Close ();
 		} else {
 			saveData.coinBank = 0;
+			saveData.initShields = 3;
 		}
 		Debug.Log ("coinBank: " + saveData.coinBank.ToString());
 	}
@@ -96,6 +96,7 @@ public class GameControl : MonoBehaviour {
 	[Serializable]
 	public class PlayerData{
 		public long coinBank;
+		public int initShields;
 
 	}
 

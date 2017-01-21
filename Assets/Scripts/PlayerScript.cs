@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour {
         moveGame = GetComponent<MoveGame>();
 
 		health = 1;
-		numShield = 3;
+		numShield = GameControl.instance.saveData.initShields;
 		float shieldDist = 360f / numShield;
 
 		for (int i = 0; i < numShield; i++) {
@@ -102,7 +102,7 @@ public class PlayerScript : MonoBehaviour {
 	public IEnumerator addShield(int numLeft, float totDur){
 		if (numLeft <= 0) {
 			yield return new WaitForSeconds (3f);
-			StartCoroutine(delShield (9, 3f/9f));
+			StartCoroutine(delShield (12-GameControl.instance.saveData.initShields, 3f/(float)(12-GameControl.instance.saveData.initShields)));
 		} else {
 			numLeft--;
 			int numFrames = (int)(totDur * 60);
