@@ -23,7 +23,7 @@ public class powerUp : MonoBehaviour {
     {
         if(collision.gameObject.name == "Player")
         {
-            powerUpNumber = Random.Range(0, 6);
+			powerUpNumber = Random.Range (0, 6);
             collision.gameObject.GetComponent<PlayerScript>().activatePowerUp(powerUpNumber);
             GameObject.Destroy(gameObject);
 

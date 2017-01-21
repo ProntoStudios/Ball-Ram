@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour {
 	private Vector3 zAxis = new Vector3 (0,0,1);
     public Image powUpRec;
     private MoveGame moveGame;
-    public enum powerups { heal, speedUp, barrier, moreShields, nuke };
+    public enum powerups { heal, speedUp, barrier, moreShields, nuke, cash };
 
     // Use this for initialization
     void Start () {
@@ -70,7 +70,7 @@ public class PlayerScript : MonoBehaviour {
 			GameControl.instance.numDeadInRow = 0;
 		}
 	}
-    //enum powerups { heal, speedUp, barrier, moreShields, nuke};
+    //enum powerups { heal, speedUp, barrier, moreShields, nuke, cash};
     public void activatePowerUp(int powerUpNmbr)
     {
         Debug.Log(powerUpNmbr);
@@ -89,19 +89,28 @@ public class PlayerScript : MonoBehaviour {
                 break;
 
             case (int)powerups.moreShields:
-                //wilsons stuff
+				StartCoroutine (addShield (12-GameControl.instance.saveData.initShields, 3f/(float)(12-GameControl.instance.saveData.initShields)));
                 break;
 
             case (int)powerups.nuke:
                 nuke();
                 break;
+			case (int)powerups.cash:
+			StartCoroutine(boostCoinOdds(10f));
+				break;
             
 
         }
     }
-	public IEnumerator addShield(int numLeft, float totDur){
+	IEnumerator boostCoinOdds(float seconds){
+		int temp = GameControl.instance.coinSpawnOdds;
+		GameControl.instance.coinSpawnOdds = 1;
+		yield return new WaitForSeconds (seconds);
+		GameControl.instance.coinSpawnOdds = temp;
+	}
+	IEnumerator addShield(int numLeft, float totDur){
 		if (numLeft <= 0) {
-			yield return new WaitForSeconds (3f);
+			yield return new WaitForSeconds (10f);
 			StartCoroutine(delShield (12-GameControl.instance.saveData.initShields, 3f/(float)(12-GameControl.instance.saveData.initShields)));
 		} else {
 			numLeft--;
@@ -127,7 +136,7 @@ public class PlayerScript : MonoBehaviour {
 			StartCoroutine(addShield (numLeft, totDur));
 		}
 	}
-	public IEnumerator delShield(int numLeft, float totDur){ 
+	IEnumerator delShield(int numLeft, float totDur){ 
 		if (numLeft <= 0) {
 
 		} else {
