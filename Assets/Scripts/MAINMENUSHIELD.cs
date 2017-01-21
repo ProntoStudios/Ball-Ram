@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MAINMENUSHIELD : MonoBehaviour
 {
-    private Rigidbody2D rb2d;
-    private BoxCollider2D shieldCol;
 
     private Vector3 zAxis = new Vector3(0, 0, 1);
 
@@ -13,8 +11,6 @@ public class MAINMENUSHIELD : MonoBehaviour
     void Start()
     {
         //rotateSpeed = 2f;
-        rb2d = GetComponent<Rigidbody2D>();
-        shieldCol = GetComponent<BoxCollider2D>();
         //GameControl.instance.rotateSpeed = 3f;
     }
 

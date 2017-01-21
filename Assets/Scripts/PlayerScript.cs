@@ -7,15 +7,12 @@ public class PlayerScript : MonoBehaviour {
 	public static PlayerScript instance;
     private int powerUp;
 	private Rigidbody2D rb2d;
-	private CircleCollider2D playerCol;
 	public int health;
 	private int numShield;
 	public List<GameObject> shieldArr;
 	private Vector3 zAxis = new Vector3 (0,0,1);
     public Image powUpRec;
     private MoveGame moveGame;
-	private int totShieldAdding = 0;
-
     public enum powerups { heal, speedUp, barrier, moreShields, nuke };
 
     // Use this for initialization
@@ -26,7 +23,6 @@ public class PlayerScript : MonoBehaviour {
 			Destroy (gameObject);
 		}
 		rb2d = GetComponent<Rigidbody2D> ();
-		playerCol = GetComponent<CircleCollider2D> ();
         moveGame = GetComponent<MoveGame>();
 
 		health = 1;

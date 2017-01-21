@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour {
 	private Rigidbody2D rb2d;
-	private CircleCollider2D projCol;
     private Transform trans;
 	private float minSpeed, maxSpeed;
 	public int health;
@@ -13,7 +12,6 @@ public class ProjectileScript : MonoBehaviour {
 	void Start () {
 		health = 1;
 		rb2d = GetComponent<Rigidbody2D> ();
-		projCol = GetComponent<CircleCollider2D> ();
         trans = GetComponent<Transform>();
 		minSpeed = -10;
 		maxSpeed = 10;

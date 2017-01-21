@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class splitScript : MonoBehaviour {
-	private Rigidbody2D rb2d;
 	private ProjectileScript proj;
 
 	// Use this for initialization
 	void Start () {
-		rb2d = GetComponent<Rigidbody2D> ();
 		proj = GetComponent<ProjectileScript> ();
 		proj.health = 3;
 	}

@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthEnemyScript : MonoBehaviour {
-
-    private Rigidbody2D rb;
     private ProjectileScript pScript;
     private SpriteRenderer spRend;
     public int maxHealth;
 
     // Use this for initialization
     void Start () {
-        rb = GetComponent<Rigidbody2D>();
         pScript = GetComponent<ProjectileScript>();
         spRend = GetComponent<SpriteRenderer>();
         maxHealth = 6;

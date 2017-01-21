@@ -6,11 +6,8 @@ public class powerUp : MonoBehaviour {
 
     
     private int powerUpNumber;
-    private Rigidbody2D rb;
 	// Use this for initialization
 	void Start () {
-        rb = GetComponent<Rigidbody2D>();
-        
 	}
 
 	
