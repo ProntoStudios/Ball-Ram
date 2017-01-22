@@ -53,6 +53,8 @@ public class GameControl : MonoBehaviour {
 
 		//save file stuff
 		Load();
+		if (saveData.leftHanded) {
+		}
 	}
 
 	// Update is called once per frame
@@ -86,9 +88,12 @@ public class GameControl : MonoBehaviour {
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
 			saveData = (PlayerData)bf.Deserialize (file);
 			file.Close ();
+
 		} else {
 			saveData.coinBank = 0;
 			saveData.initShields = 3;
+
+			saveData.leftHanded = false;
 		}
 		Debug.Log ("coinBank: " + saveData.coinBank.ToString());
 	}
@@ -98,6 +103,7 @@ public class GameControl : MonoBehaviour {
 		public long coinBank;
 		public int initShields;
 
+		public bool leftHanded;
 	}
 
 	public void PlayerDied(){

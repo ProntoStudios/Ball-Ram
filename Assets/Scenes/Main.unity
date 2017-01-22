@@ -327,6 +327,7 @@ MonoBehaviour:
   saveData:
     coinBank: 0
     initShields: 0
+    leftHanded: 0
 --- !u!4 &940175333
 Transform:
   m_ObjectHideFlags: 0
@@ -1193,7 +1194,7 @@ GameObject:
   - component: {fileID: 1940043890}
   - component: {fileID: 1940043892}
   m_Layer: 5
-  m_Name: Mask
+  m_Name: MinimapMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
