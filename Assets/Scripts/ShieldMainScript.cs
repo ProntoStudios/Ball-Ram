@@ -23,4 +23,7 @@ public class ShieldMainScript : MonoBehaviour {
 		//gameObject.transform.localScale = (Vector3)gameObject.transform.localScale + new Vector3 (0.1f,0,0);
 
 	}
+	public Vector3 toPlayerNorm (){
+		return (PlayerScript.instance.transform.position - gameObject.transform.position).normalized;
+	}
 }

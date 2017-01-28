@@ -46,6 +46,7 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 		if(health < 1){
 			rb2d.velocity = Vector2.zero;
+			//StartCoroutine (delShield (3, 0.5f));
 			for (int i = 0; i < 7; i++) {
 				GameObject tempBlob = Instantiate (Resources.Load<GameObject> ("Prefabs/PlayerDeadBlob"), gameObject.transform.position, Quaternion.Euler (0, 0, 0));
 				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-20, 20)/10f, UnityEngine.Random.Range(-20, 20)/10f);
@@ -159,7 +160,12 @@ public class PlayerScript : MonoBehaviour {
 			shieldArr.RemoveAt (shieldArr.Count - 1);
 			StartCoroutine(delShield (numLeft, totDur));
 		}
-	}
+	}/*
+	IEnumerator shiftShield(int numLeft, float dis, float totDur){
+		for (int i = 0; i < shieldArr.Count; i++) {
+			shieldArr[i].transform.position = 
+		}
+	}*/
     IEnumerator speedUpForSeconds(int seconds)
     {
         moveGame.moveSpeed *= 1.5f;

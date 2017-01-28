@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4966108063781762}
   - component: {fileID: 212437365670974532}
   - component: {fileID: 50648344038493436}
+  - component: {fileID: 58954961610745392}
+  - component: {fileID: 114705397963216358}
   m_Layer: 10
   m_Name: PlayerDeadBlob
   m_TagString: Untagged
@@ -36,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1786780303525834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -10, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,6 +63,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58954961610745392
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786780303525834}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.02
+--- !u!114 &114705397963216358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786780303525834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5aa40c28406429781417f9b2872f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212437365670974532
 SpriteRenderer:
   m_ObjectHideFlags: 1
