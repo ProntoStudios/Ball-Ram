@@ -19,7 +19,7 @@ public class GameControl : MonoBehaviour {
 	public int coinTot = 0;
 	public int coinSpawnOdds = 3; // 1 in coinSpawnOdds
     
-	public float rotateSpeed = 1.5f;
+	public float rotateSpeed;
 
     public Text scoreText;
     public Text levelText;

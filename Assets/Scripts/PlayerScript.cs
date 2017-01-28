@@ -53,7 +53,7 @@ public class PlayerScript : MonoBehaviour {
 				int scale = UnityEngine.Random.Range (10, 30);
 				tempBlob.transform.localScale = new Vector3 (scale, scale, 0);
 			}
-
+			StartCoroutine (shieldEndAnim());
 			MonoBehaviour[] scripts = gameObject.GetComponents<MonoBehaviour>();
 			foreach(MonoBehaviour script in scripts)
 			{
@@ -63,6 +63,22 @@ public class PlayerScript : MonoBehaviour {
 			gameObject.GetComponent<CircleCollider2D>().enabled = false;
 
 			GameControl.instance.PlayerDied ();
+		}
+	}
+	IEnumerator shieldEndAnim(){
+		while (GameControl.instance.rotateSpeed > 0.5f) {
+			GameControl.instance.rotateSpeed /= 1.1f;
+			yield return new WaitForSeconds (0.05f);
+		}
+		while (shieldArr [0].transform.localScale.x > 0.05f) {
+			GameControl.instance.rotateSpeed /= 1.1f;
+			for (int i = 0; i < shieldArr.Count; i++) {
+				shieldArr [i].transform.localScale = new Vector3(shieldArr [i].transform.localScale.x - 0.05f, shieldArr [i].transform.localScale.y, shieldArr [i].transform.localScale.z);
+			}
+			yield return new WaitForSeconds (0.015f);
+		}
+		for (int i = 0; i < shieldArr.Count; i++) {
+			shieldArr [i].transform.localScale = new Vector3(0,0,0);
 		}
 	}
 	void OnCollisionEnter2D(Collision2D node){

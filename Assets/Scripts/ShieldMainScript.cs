@@ -8,7 +8,7 @@ public class ShieldMainScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameControl.instance.rotateSpeed = 2f;
+		GameControl.instance.rotateSpeed = 2.5f;
 	}
 	
 	// Update is called once per frame
