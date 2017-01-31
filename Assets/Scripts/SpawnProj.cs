@@ -6,7 +6,6 @@ public class SpawnProj : MonoBehaviour
 {
     public int maxProj = 30;
 	private int maxProjType;
-	private float pauseTime = 1.3f;
 
     // Use this for initialization
 	void Start ()
@@ -34,7 +33,7 @@ public class SpawnProj : MonoBehaviour
 	IEnumerator ProjSpawner()
 	{
 		while (true) {
-			yield return new WaitForSeconds (pauseTime);
+			yield return new WaitForSeconds (GameControl.instance.spawnSpeed);
 			CreateObstacle ();
 		}
 	}

@@ -18,6 +18,8 @@ public class GameControl : MonoBehaviour {
 	public int numDeadInRow = 0;
 	public int coinTot = 0;
 	public int coinSpawnOdds = 3; // 1 in coinSpawnOdds
+	public int initShields;
+	public float spawnSpeed = 1f;
     
 	public float rotateSpeed;
 
@@ -53,6 +55,7 @@ public class GameControl : MonoBehaviour {
 
 		//save file stuff
 		Load();
+		initShields = 3;
 		if (saveData.leftHanded) {
 		}
 	}
@@ -60,6 +63,7 @@ public class GameControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (numDead / (level * 3) > 0) {
+			//StartCoroutine (tempSpawnSpeedup ());
             level++;
             StartCoroutine(levelPopup());
             numDead /= 2;
@@ -72,7 +76,6 @@ public class GameControl : MonoBehaviour {
 
         
 	}
-
 	public void Save(){
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
@@ -91,7 +94,7 @@ public class GameControl : MonoBehaviour {
 
 		} else {
 			saveData.coinBank = 0;
-			saveData.initShields = 3;
+			saveData.character = "default";
 
 			saveData.leftHanded = false;
 		}
@@ -101,9 +104,15 @@ public class GameControl : MonoBehaviour {
 	[Serializable]
 	public class PlayerData{
 		public long coinBank;
-		public int initShields;
-
+		public string character;
 		public bool leftHanded;
+	}
+	IEnumerator tempSpawnSpeedup(){
+		float temp = spawnSpeed;
+		spawnSpeed = 0.2f;
+		yield return new WaitForSeconds(3f);
+		spawnSpeed = temp;
+
 	}
 
 	public void PlayerDied(){

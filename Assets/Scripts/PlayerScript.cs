@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour {
         moveGame = GetComponent<MoveGame>();
 
 		health = 1;
-		numShield = GameControl.instance.saveData.initShields;
+		numShield = GameControl.instance.initShields;
 		float shieldDist = 360f / numShield;
 
 		for (int i = 0; i < numShield; i++) {
@@ -49,7 +49,7 @@ public class PlayerScript : MonoBehaviour {
 			//StartCoroutine (delShield (3, 0.5f));
 			for (int i = 0; i < 7; i++) {
 				GameObject tempBlob = Instantiate (Resources.Load<GameObject> ("Prefabs/PlayerDeadBlob"), gameObject.transform.position, Quaternion.Euler (0, 0, 0));
-				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-20, 20)/10f, UnityEngine.Random.Range(-20, 20)/10f);
+				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-30, 30)/10f, UnityEngine.Random.Range(-30,30)/10f);
 				int scale = UnityEngine.Random.Range (10, 30);
 				tempBlob.transform.localScale = new Vector3 (scale, scale, 0);
 			}
@@ -106,7 +106,7 @@ public class PlayerScript : MonoBehaviour {
                 break;
 
             case (int)powerups.moreShields:
-				StartCoroutine (addShield (12-GameControl.instance.saveData.initShields, 3f/(float)(12-GameControl.instance.saveData.initShields)));
+				StartCoroutine (addShield (12-GameControl.instance.initShields, 3f/(float)(12-GameControl.instance.initShields)));
                 break;
 
             case (int)powerups.nuke:
@@ -129,7 +129,7 @@ public class PlayerScript : MonoBehaviour {
 	IEnumerator addShield(int numLeft, float totDur){
 		if (numLeft <= 0) {
 			yield return new WaitForSeconds (10f);
-			StartCoroutine(delShield (12-GameControl.instance.saveData.initShields, 3f/(float)(12-GameControl.instance.saveData.initShields)));
+			StartCoroutine(delShield (12-GameControl.instance.initShields, 3f/(float)(12-GameControl.instance.initShields)));
 		} else {
 			numLeft--;
 			int numFrames = (int)(totDur * 60);
