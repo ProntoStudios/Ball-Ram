@@ -7,10 +7,12 @@ public class ShieldMainScript : MonoBehaviour {
 	private Vector3 zAxis = new Vector3 (0,0,1);
 	public bool weakShields;
 	private bool isDisabled = false;
+	private SpriteRenderer spRd;
 
 	// Use this for initialization
 	void Start () {
 		GameControl.instance.rotateSpeed = 2.5f;
+		spRd = gameObject.GetComponent<SpriteRenderer> ();
 		if (GameControl.instance.saveData.character == "weak12") {
 			weakShields = true;
 		} else {
@@ -31,11 +33,20 @@ public class ShieldMainScript : MonoBehaviour {
 
 	}
 	void OnCollisionEnter2D(Collision2D node){
-		if (weakShields) {
-			if (node.gameObject.tag == "Projectile") {
+		if (node.gameObject.tag == "Projectile") {
+			if (weakShields) {
 				StartCoroutine (disableFor (12f));
+			} else {
+				StartCoroutine(ColorHit ());
 			}
 		}
+	}
+	public IEnumerator ColorHit(){
+		for(float i = 0.6f; i <= 1f; i+= 0.01f){
+			spRd.color = new Color (i, i, 1f);
+			yield return new WaitForSeconds (0.03f);
+		}
+		spRd.color = new Color (1f, 1f, 1f);
 	}
 	public Vector3 toPlayerNorm (){
 		return (PlayerScript.instance.transform.position - gameObject.transform.position).normalized;
