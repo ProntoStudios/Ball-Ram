@@ -25,7 +25,7 @@ public class MoveGame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-		moveSpeed = 11f;
+		moveSpeed = 12f;
 		calibrateAccelerometer ();
 	}
 	

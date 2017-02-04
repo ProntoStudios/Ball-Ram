@@ -23,7 +23,13 @@ public class powerUp : MonoBehaviour {
     {
         if(collision.gameObject.name == "Player")
         {
-			powerUpNumber = Random.Range (0, 6);
+			//PowerUpNumber = 3;
+			//powerUpNumber = Random.Range (0, 6);
+
+			//powerup limiter, DISABLE LATER
+			while (PowerUpNumber != 1 && PowerUpNumber != 3 && PowerUpNumber != 4) { 
+				powerUpNumber = Random.Range (0, 6);
+			}
             collision.gameObject.GetComponent<PlayerScript>().activatePowerUp(powerUpNumber);
             GameObject.Destroy(gameObject);
 

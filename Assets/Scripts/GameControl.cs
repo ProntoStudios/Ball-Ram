@@ -55,7 +55,12 @@ public class GameControl : MonoBehaviour {
 
 		//save file stuff
 		Load();
-		initShields = 3;
+		if (saveData.character == "default") {
+			initShields = 3;
+		}
+		else if (saveData.character == "weak12") {
+			initShields = 12;
+		}
 		if (saveData.leftHanded) {
 		}
 	}
@@ -91,7 +96,7 @@ public class GameControl : MonoBehaviour {
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
 			saveData = (PlayerData)bf.Deserialize (file);
 			file.Close ();
-
+			saveData.character = "default";
 		} else {
 			saveData.coinBank = 0;
 			saveData.character = "default";

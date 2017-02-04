@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour {
 	public int health;
 	private int numShield;
 	public List<GameObject> shieldArr;
+	public bool weakShields;
 	private Vector3 zAxis = new Vector3 (0,0,1);
     public Image powUpRec;
     private MoveGame moveGame;
@@ -25,6 +26,11 @@ public class PlayerScript : MonoBehaviour {
 		rb2d = GetComponent<Rigidbody2D> ();
         moveGame = GetComponent<MoveGame>();
 
+		if (GameControl.instance.saveData.character == "weak12") {
+			weakShields = true;
+		} else {
+			weakShields = false;
+		}
 		health = 1;
 		numShield = GameControl.instance.initShields;
 		float shieldDist = 360f / numShield;
@@ -70,15 +76,21 @@ public class PlayerScript : MonoBehaviour {
 			GameControl.instance.rotateSpeed /= 1.1f;
 			yield return new WaitForSeconds (0.05f);
 		}
-		while (shieldArr [0].transform.localScale.x > 0.05f) {
-			GameControl.instance.rotateSpeed /= 1.1f;
+		if (GameControl.instance.saveData.character == "weak12") {
 			for (int i = 0; i < shieldArr.Count; i++) {
-				shieldArr [i].transform.localScale = new Vector3(shieldArr [i].transform.localScale.x - 0.05f, shieldArr [i].transform.localScale.y, shieldArr [i].transform.localScale.z);
+				StartCoroutine(shieldArr [i].GetComponent<ShieldMainScript> ().disableFor (300f));
 			}
-			yield return new WaitForSeconds (0.015f);
-		}
-		for (int i = 0; i < shieldArr.Count; i++) {
-			shieldArr [i].transform.localScale = new Vector3(0,0,0);
+		} else {
+			while (shieldArr [0].transform.localScale.x > 0.05f) {
+				GameControl.instance.rotateSpeed /= 1.1f;
+				for (int i = 0; i < shieldArr.Count; i++) {
+					shieldArr [i].transform.localScale = new Vector3 (shieldArr [i].transform.localScale.x - 0.05f, shieldArr [i].transform.localScale.y, shieldArr [i].transform.localScale.z);
+				}
+				yield return new WaitForSeconds (0.015f);
+			}
+			for (int i = 0; i < shieldArr.Count; i++) {
+				shieldArr [i].transform.localScale = new Vector3 (0, 0, 0);
+			}
 		}
 	}
 	void OnCollisionEnter2D(Collision2D node){
@@ -98,15 +110,19 @@ public class PlayerScript : MonoBehaviour {
                 break;
 
             case (int)powerups.speedUp: //speedUp
-                StartCoroutine(speedUpForSeconds(10));
+                StartCoroutine(speedUpForSeconds(5));
                 break;
 
             case (int)powerups.barrier: //barrier
                 //shield powerup stuff here
                 break;
 
-            case (int)powerups.moreShields:
-				StartCoroutine (addShield (12-GameControl.instance.initShields, 3f/(float)(12-GameControl.instance.initShields)));
+			case (int)powerups.moreShields:
+				if (GameControl.instance.saveData.character == "default") {
+					if (12 - shieldArr.Count > 0) {
+						StartCoroutine (addShield (12 - shieldArr.Count, 3f / (float)(12 - GameControl.instance.initShields)));
+					}
+				}
                 break;
 
             case (int)powerups.nuke:
@@ -128,7 +144,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 	IEnumerator addShield(int numLeft, float totDur){
 		if (numLeft <= 0) {
-			yield return new WaitForSeconds (10f);
+			yield return new WaitForSeconds (5f);
 			StartCoroutine(delShield (12-GameControl.instance.initShields, 3f/(float)(12-GameControl.instance.initShields)));
 		} else {
 			numLeft--;
