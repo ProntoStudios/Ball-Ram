@@ -88,7 +88,6 @@ public class GameControl : MonoBehaviour {
 		} else {
 			saveData.character = "default";
 		}
-		PlayerDied ();
 	}
 	public void Save(){
 		BinaryFormatter bf = new BinaryFormatter ();
@@ -129,6 +128,8 @@ public class GameControl : MonoBehaviour {
 	}
 
 	public void PlayerDied(){
+
+		SwitchChar ();
 		StartCoroutine(waitForRestart ());
 	}
 	IEnumerator waitForRestart(){

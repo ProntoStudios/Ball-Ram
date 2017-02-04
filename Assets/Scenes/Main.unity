@@ -1609,7 +1609,6 @@ RectTransform:
   - {fileID: 1575946741}
   - {fileID: 229439558}
   - {fileID: 1220232948}
-  - {fileID: 17439975}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1749,7 +1748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  onPhone: 0
+  onPhone: 1
 --- !u!1 &1473716784
 GameObject:
   m_ObjectHideFlags: 0
