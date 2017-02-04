@@ -40,7 +40,7 @@ public class ProjectileScript : MonoBehaviour {
         while (trans.localScale.x > 0 && trans.localScale.y > 0 && trans.localScale.z > 0)
         {
             trans.localScale = new Vector3(trans.localScale.x - 0.1f, trans.localScale.y - 0.1f, trans.localScale.z - 0.1f);
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.01f);
             
         }
         GameControl.instance.deleteProj(gameObject);

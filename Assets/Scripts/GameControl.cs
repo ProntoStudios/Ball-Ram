@@ -127,7 +127,8 @@ public class GameControl : MonoBehaviour {
 		yield return new WaitForSeconds(3f);
 		Save ();
 
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
+		//SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
+		SceneManager.LoadScene("menu");
 	}
 
 	public void spawnProj(int projType, Vector3 pos){
