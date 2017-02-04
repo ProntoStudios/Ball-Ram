@@ -55,8 +55,8 @@ public class PlayerScript : MonoBehaviour {
 			//StartCoroutine (delShield (3, 0.5f));
 			for (int i = 0; i < 7; i++) {
 				GameObject tempBlob = Instantiate (Resources.Load<GameObject> ("Prefabs/PlayerDeadBlob"), gameObject.transform.position, Quaternion.Euler (0, 0, 0));
-				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-30, 30)/10f, UnityEngine.Random.Range(-30,30)/10f);
-				int scale = UnityEngine.Random.Range (10, 30);
+				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-20, 20)/10f, UnityEngine.Random.Range(-20,20)/10f);
+				float scale = UnityEngine.Random.Range (0.8f, 1.2f);
 				tempBlob.transform.localScale = new Vector3 (scale, scale, 0);
 			}
 			StartCoroutine (shieldEndAnim());

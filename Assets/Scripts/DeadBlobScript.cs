@@ -29,7 +29,7 @@ public class DeadBlobScript : MonoBehaviour {
 		rb2d.velocity = new Vector3(0, 0, 0);
 		while (trans.localScale.x > 0.1f && trans.localScale.y > 0.1f)
 		{
-			trans.localScale = new Vector3(trans.localScale.x / 1.1f, trans.localScale.y / 1.1f, trans.localScale.z);
+			trans.localScale = new Vector3(trans.localScale.x / 10, trans.localScale.y / 10, trans.localScale.z);
 			yield return new WaitForSeconds(0.02f);
 
 		}
