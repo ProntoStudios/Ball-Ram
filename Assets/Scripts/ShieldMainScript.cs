@@ -28,7 +28,7 @@ public class ShieldMainScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D node){
 		if (weakShields) {
 			if (node.gameObject.tag == "Projectile") {
-				StartCoroutine (disableFor (15f));
+				StartCoroutine (disableFor (10f));
 			}
 		}
 	}

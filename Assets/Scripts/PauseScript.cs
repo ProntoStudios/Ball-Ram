@@ -30,6 +30,11 @@ public class PauseScript : MonoBehaviour {
 		Time.timeScale = 0;
 		pausePanel.SetActive(true);
 		//Disable scripts that still work while timescale is set to 0
+
+		//makes sure joystick isnt accidentally moved
+		joystickCenterScript.instance.transform.position = JoystickScript.instance.joystickCenter;
+		JoystickScript.instance.movePos = Vector2.zero;
+
 	} 
 	private void ContinueGame()
 	{
