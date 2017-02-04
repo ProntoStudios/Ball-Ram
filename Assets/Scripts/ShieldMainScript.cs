@@ -31,11 +31,9 @@ public class ShieldMainScript : MonoBehaviour {
 
 	}
 	void OnCollisionEnter2D(Collision2D node){
-		Debug.Log ("collided1");
 		if (weakShields) {
 			if (node.gameObject.tag == "Projectile") {
 				StartCoroutine (disableFor (12f));
-				Debug.Log ("collided2");
 			}
 		}
 	}

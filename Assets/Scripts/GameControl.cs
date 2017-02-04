@@ -82,6 +82,13 @@ public class GameControl : MonoBehaviour {
 
         
 	}
+	public void SwitchChar(){
+		if (saveData.character == "default") {
+			saveData.character = "weak12";
+		} else {
+			saveData.character = "default";
+		}
+	}
 	public void Save(){
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
@@ -97,7 +104,6 @@ public class GameControl : MonoBehaviour {
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
 			saveData = (PlayerData)bf.Deserialize (file);
 			file.Close ();
-			saveData.character = "weak12";
 		} else {
 			saveData.coinBank = 0;
 			saveData.character = "default";
