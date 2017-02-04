@@ -5,12 +5,17 @@ using UnityEngine;
 public class ShieldMainScript : MonoBehaviour {
 
 	private Vector3 zAxis = new Vector3 (0,0,1);
-	public bool weakShields = PlayerScript.instance.weakShields;
+	public bool weakShields;
 	private bool isDisabled = false;
 
 	// Use this for initialization
 	void Start () {
 		GameControl.instance.rotateSpeed = 2.5f;
+		if (GameControl.instance.saveData.character == "weak12") {
+			weakShields = true;
+		} else {
+			weakShields = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -26,9 +31,11 @@ public class ShieldMainScript : MonoBehaviour {
 
 	}
 	void OnCollisionEnter2D(Collision2D node){
+		Debug.Log ("collided1");
 		if (weakShields) {
 			if (node.gameObject.tag == "Projectile") {
-				StartCoroutine (disableFor (10f));
+				StartCoroutine (disableFor (12f));
+				Debug.Log ("collided2");
 			}
 		}
 	}
