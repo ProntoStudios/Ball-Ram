@@ -88,6 +88,7 @@ public class GameControl : MonoBehaviour {
 		} else {
 			saveData.character = "default";
 		}
+		PlayerDied ();
 	}
 	public void Save(){
 		BinaryFormatter bf = new BinaryFormatter ();
