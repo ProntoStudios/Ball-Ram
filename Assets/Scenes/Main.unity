@@ -582,6 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movePos: {x: 0, y: 0}
+  joystickCenter: {x: 0, y: 0}
 --- !u!225 &997674082
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -630,7 +631,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4654059238837094, guid: c33c2efacde896e499fa90280a044205, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 212331561240380674, guid: c33c2efacde896e499fa90280a044205,
         type: 2}
@@ -1096,7 +1097,7 @@ RectTransform:
   - {fileID: 229439558}
   - {fileID: 1220232948}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1171,7 +1172,7 @@ Transform:
   - {fileID: 1961685243}
   - {fileID: 1242803782}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1359303842
 CircleCollider2D:
@@ -1542,7 +1543,7 @@ Transform:
   - {fileID: 1387800373}
   - {fileID: 156822378}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1940043888
 GameObject:

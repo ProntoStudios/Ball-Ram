@@ -12,6 +12,7 @@ public class JoystickScript : MonoBehaviour {
 	//static Vector2 centerPos;
 	static float joystickScaler;
 	static Vector2 joystickScalerVec;
+	static Vector2 halfScreen = new Vector2 (Screen.width / 2f, Screen.height / 2f);
 	/*
 	static Vector2 joystickScalerVecNeg;
 	static Vector2 joystickScalerVecInv;
@@ -41,16 +42,18 @@ public class JoystickScript : MonoBehaviour {
 	void FixedUpdate () {
 		if (Input.touchCount > 0) {
 			curTouchPos = Input.GetTouch (0).position;
-			relTouchPos.Set (curTouchPos.x - joystickCenter.x, curTouchPos.y - joystickCenter.y);
+			if (curTouchPos.x >  halfScreen.x && curTouchPos.y < halfScreen.y) {
+				relTouchPos.Set (curTouchPos.x - joystickCenter.x, curTouchPos.y - joystickCenter.y);
 
-			if (relTouchPos.magnitude >= joystickScaler) {
-				relTouchPos.Normalize ();
-				relTouchPos.Scale (joystickScalerVec);
+				if (relTouchPos.magnitude >= joystickScaler) {
+					relTouchPos.Normalize ();
+					relTouchPos.Scale (joystickScalerVec);
+				}
+				joystickCenterScript.instance.transform.position = relTouchPos + joystickCenter;
+				movePos = relTouchPos;
+				movePos.Scale (new Vector2 (1f / joystickScalerVec.x, 1f / joystickScalerVec.y));
+				isTouching = true;
 			}
-			joystickCenterScript.instance.transform.position = relTouchPos + joystickCenter;
-			movePos = relTouchPos;
-			movePos.Scale (new Vector2(1f/joystickScalerVec.x, 1f/joystickScalerVec.y));
-			isTouching = true;
 		} else if (isTouching) {
 			isTouching = false;
 			joystickCenterScript.instance.transform.position = joystickCenter;
