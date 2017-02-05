@@ -67,8 +67,8 @@ public class ShieldMainScript : MonoBehaviour {
 					yield return new WaitForSeconds (0.015f);
 				}
 				gameObject.transform.localScale = new Vector3 (currScale, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-				isDisabled = false;
 			}
+			isDisabled = false;
 		}
 	}
 }
