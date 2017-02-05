@@ -61,12 +61,14 @@ public class ShieldMainScript : MonoBehaviour {
 			}
 			gameObject.transform.localScale = new Vector3 (0, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
 			yield return new WaitForSeconds (seconds);
-			while (gameObject.transform.localScale.x < currScale) {
-				gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x + 0.07f, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-				yield return new WaitForSeconds (0.015f);
+			if(PlayerScript.instance.health > 0){
+				while (gameObject.transform.localScale.x < currScale) {
+					gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x + 0.07f, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+					yield return new WaitForSeconds (0.015f);
+				}
+				gameObject.transform.localScale = new Vector3 (currScale, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+				isDisabled = false;
 			}
-			gameObject.transform.localScale = new Vector3 (currScale, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-			isDisabled = false;
 		}
 	}
 }
