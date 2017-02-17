@@ -73,7 +73,7 @@ public class GameControl : MonoBehaviour {
             level++;
             StartCoroutine(levelPopup());
             numDead /= 2;
-            spawnPowerUp(0);
+			spawnPowerUp (0);
 			
 		}
 		if(Input.touchCount == 3){

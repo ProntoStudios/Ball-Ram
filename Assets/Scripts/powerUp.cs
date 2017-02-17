@@ -24,12 +24,20 @@ public class powerUp : MonoBehaviour {
         if(collision.gameObject.name == "Player")
         {
 			//PowerUpNumber = 3;
-			//powerUpNumber = Random.Range (0, 6);
+			if (PlayerScript.instance.numCurrPowerups >= System.Enum.GetNames (typeof(PlayerScript.powerups)).Length) {
+				PowerUpNumber = 0;
+			} else {
+				do{
+					powerUpNumber = Random.Range (0, System.Enum.GetNames(typeof(PlayerScript.powerups)).Length);
+				}while(PlayerScript.instance.currPowerups[PowerUpNumber] == true);
+			}
 
+
+			/*
 			//powerup limiter, DISABLE LATER
 			while (PowerUpNumber != 1 && PowerUpNumber != 3 && PowerUpNumber != 4) { 
 				powerUpNumber = Random.Range (0, 6);
-			}
+			}*/
             collision.gameObject.GetComponent<PlayerScript>().activatePowerUp(powerUpNumber);
             GameObject.Destroy(gameObject);
 

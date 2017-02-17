@@ -14,7 +14,9 @@ public class PlayerScript : MonoBehaviour {
 	private Vector3 zAxis = new Vector3 (0,0,1);
     public Image powUpRec;
     private MoveGame moveGame;
-    public enum powerups { heal, speedUp, barrier, moreShields, nuke, cash };
+	public enum powerups { speedUp, heal, barrier, moreShields, nuke, cash };
+	public bool[] currPowerups = new bool[System.Enum.GetNames(typeof(powerups)).Length];
+	public int numCurrPowerups = 0;
 
     // Use this for initialization
     void Start () {
@@ -103,14 +105,16 @@ public class PlayerScript : MonoBehaviour {
     public void activatePowerUp(int powerUpNmbr)
     {
         Debug.Log(powerUpNmbr);
+		numCurrPowerups++;
+		currPowerups [powerUpNmbr] = true;
         switch (powerUpNmbr)
-        {
-            case (int)powerups.heal: //HEAL
-                health++;
-                break;
+		{
 
-            case (int)powerups.speedUp: //speedUp
-                StartCoroutine(speedUpForSeconds(5));
+			case (int)powerups.speedUp: //speedUp
+				StartCoroutine(speedUpForSeconds(5));
+				break;
+
+            case (int)powerups.heal: //HEAL
                 break;
 
             case (int)powerups.barrier: //barrier
@@ -119,21 +123,17 @@ public class PlayerScript : MonoBehaviour {
 
 			case (int)powerups.moreShields:
 				if (GameControl.instance.saveData.character == "default") {
-					if (12 - shieldArr.Count > 0) {
-						StartCoroutine (addShield (12 - shieldArr.Count, 3f / (float)(12 - GameControl.instance.initShields)));
-					}
+					StartCoroutine (addShield (12 - shieldArr.Count, 3f / (float)(12 - GameControl.instance.initShields)));
 				}
                 break;
 
-            case (int)powerups.nuke:
-                nuke();
+		case (int)powerups.nuke:
+			StartCoroutine (nuke ());
                 break;
 
 			case (int)powerups.cash:
 				StartCoroutine(boostCoinOdds(10f));
 				break;
-            
-
         }
     }
 	IEnumerator boostCoinOdds(float seconds){
@@ -141,6 +141,8 @@ public class PlayerScript : MonoBehaviour {
 		GameControl.instance.coinSpawnOdds = 1;
 		yield return new WaitForSeconds (seconds);
 		GameControl.instance.coinSpawnOdds = temp;
+		numCurrPowerups--;
+		currPowerups [(int)powerups.cash] = false;
 	}
 	IEnumerator addShield(int numLeft, float totDur){
 		if (numLeft <= 0) {
@@ -172,7 +174,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 	IEnumerator delShield(int numLeft, float totDur){ 
 		if (numLeft <= 0) {
-
+			numCurrPowerups--;
+			currPowerups [(int)powerups.moreShields] = false;
 		} else {
 			numLeft--;
 			int numFrames = (int)(totDur * 60);
@@ -203,6 +206,8 @@ public class PlayerScript : MonoBehaviour {
         moveGame.moveSpeed *= 1.5f;
         yield return new WaitForSeconds(seconds);
         moveGame.moveSpeed /= 1.5f;
+		numCurrPowerups--;
+		currPowerups [(int)powerups.speedUp] = false;
     }
 
     IEnumerator barrier(int seconds)
@@ -212,12 +217,16 @@ public class PlayerScript : MonoBehaviour {
         moveGame.moveSpeed /= 1.5f;
     }
 
-    void nuke()
+	IEnumerator nuke()
     {
         for(int i = 0; i < GameControl.instance.projArr.Count; i++)
         {
             GameControl.instance.projArr[i].GetComponent<ProjectileScript>().killProj();
-        }
+		}
+
+		yield return new WaitForSeconds(10);
+		numCurrPowerups--;
+		currPowerups [(int)powerups.nuke] = false;
     }
 
 }
