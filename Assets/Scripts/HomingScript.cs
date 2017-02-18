@@ -18,5 +18,9 @@ public class HomingScript : MonoBehaviour {
 
 		rb2d.velocity = (Vector3) rb2d.velocity + Vector3.ClampMagnitude(toPlayer,0.7f);
 		rb2d.velocity = Vector3.ClampMagnitude (rb2d.velocity, 10);
+		Vector3 targetDir = PlayerScript.instance.transform.position - transform.position;
+
+		float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 }

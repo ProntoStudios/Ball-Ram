@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinScript : MonoBehaviour {
-	private int value;
 	private Transform trans;
 	private Rigidbody2D rb2d;
 	public int coinValMin = 1;
-	public int coinValMax = 3;
+	public int coinValMax = 2;
+	private bool deleted = false;
 
 	// Use this for initialization
 	void Start () {
 		trans = GetComponent<Transform>();
 		rb2d = GetComponent<Rigidbody2D> ();
-		value = Random.Range (coinValMin, coinValMax);
 		StartCoroutine(killClock ());
 	}
 	
@@ -28,9 +27,7 @@ public class CoinScript : MonoBehaviour {
 	}
 	void OnTriggerEnter2D (Collider2D node){
 		if (node.name == "Player") {
-			GameControl.instance.coinTot += value;
 			delete ();
-			Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
 			//PlayerScript.instance.activatePowerUp (Random.Range (0, 6));
 		} else if (node.tag == "Wall") {
 			rb2d.velocity = Vector2.zero;
@@ -44,14 +41,20 @@ public class CoinScript : MonoBehaviour {
 			yield return new WaitForSeconds(0.02f);
 
 		}
-		delete();
+		if (gameObject != null){
+			GameObject.Destroy (gameObject);
+		}
 	}
 	void delete(){
 		if (gameObject == null) {
 			return;
 		} else {
-			GameObject.Destroy (gameObject);
-			GameControl.instance.coinTot += value;
+			if (!deleted) {
+				GameObject.Destroy (gameObject);
+				GameControl.instance.coinTot++;
+				Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
+				deleted = true;
+			}
 		}
 	}
 }

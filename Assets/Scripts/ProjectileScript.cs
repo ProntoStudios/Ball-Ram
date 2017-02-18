@@ -7,6 +7,7 @@ public class ProjectileScript : MonoBehaviour {
     private Transform trans;
 	private float minSpeed, maxSpeed;
 	public int health;
+	private bool invulnerble = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,19 +23,24 @@ public class ProjectileScript : MonoBehaviour {
 	void FixedUpdate () {
 	}
 	void OnCollisionEnter2D(Collision2D node){
-		if (node.gameObject.tag == "Shield") {
+		if (node.gameObject.tag == "Shield" && !invulnerble) {
 			health--;
-            if(health < 1)
-            {
-                killProj();
-            }
+			if (health < 1) {
+				killProj ();
+			} else {
+				StartCoroutine (tempInv ());
+			}
 			
 		}
 		else if (node.gameObject.name == "Player") {
 			GameControl.instance.deleteProj (gameObject);
 		}
 	}
-
+	private IEnumerator tempInv(){
+		invulnerble = true;
+		yield return new WaitForSeconds (0.5f);
+		invulnerble = false;
+	}
     private IEnumerator killAnimation()
     {
         while (trans.localScale.x > 0 && trans.localScale.y > 0 && trans.localScale.z > 0)

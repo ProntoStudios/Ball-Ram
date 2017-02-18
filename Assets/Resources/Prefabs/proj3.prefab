@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212345257114557676}
   - component: {fileID: 114496504041845450}
   - component: {fileID: 50648104830560868}
-  - component: {fileID: 58750991095458424}
   - component: {fileID: 114772626474619426}
+  - component: {fileID: 61361877827035744}
   m_Layer: 0
   m_Name: proj3
   m_TagString: Projectile
@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1066205342451182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -7.241, y: 5.5454464, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,15 +57,15 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.3
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 47199fa7d8f00054b9b01cf0dd1ca831, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58750991095458424
-CircleCollider2D:
+--- !u!61 &61361877827035744
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -77,7 +77,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 3.2999997, y: 3.2999997}
 --- !u!114 &114496504041845450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dd84a7c79510b4f2caa30d01edec2af6, type: 3}
-  m_Color: {r: 1, g: 0.5882353, b: 0.62352943, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 939433ea254bd44f4bbbc8bb74d30297, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
