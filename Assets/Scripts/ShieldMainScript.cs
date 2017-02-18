@@ -8,6 +8,7 @@ public class ShieldMainScript : MonoBehaviour {
 	public bool weakShields;
 	private bool isDisabled = false;
 	private SpriteRenderer spRd;
+	private float initScale;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,7 @@ public class ShieldMainScript : MonoBehaviour {
 		} else {
 			weakShields = false;
 		}
+		initScale = gameObject.transform.localScale.x;
 	}
 	
 	// Update is called once per frame
@@ -53,22 +55,28 @@ public class ShieldMainScript : MonoBehaviour {
 	}
 	public IEnumerator disableFor(float seconds){
 		if (!isDisabled) {
-			isDisabled = true;
-			float currScale = gameObject.transform.localScale.x;
-			while (gameObject.transform.localScale.x > 0.05f) {
-				gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x - 0.07f, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-				yield return new WaitForSeconds (0.015f);
-			}
-			gameObject.transform.localScale = new Vector3 (0, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+			StartCoroutine(disable ());
 			yield return new WaitForSeconds (seconds);
-			if(PlayerScript.instance.health > 0){
-				while (gameObject.transform.localScale.x < currScale) {
-					gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x + 0.07f, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-					yield return new WaitForSeconds (0.015f);
-				}
-				gameObject.transform.localScale = new Vector3 (currScale, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+			StartCoroutine(enable ());
+		}
+	}
+	public IEnumerator disable(){
+		isDisabled = true;
+		while (gameObject.transform.localScale.x > 0.05f) {
+			gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x - 0.07f, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+			yield return new WaitForSeconds (0.015f);
+		}
+		gameObject.transform.localScale = new Vector3 (0, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+	}
+	public IEnumerator enable(){
+		if(PlayerScript.instance.health > 0){
+			while (gameObject.transform.localScale.x < initScale) {
+				gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x + 0.07f, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+				yield return new WaitForSeconds (0.03f);
 			}
+			gameObject.transform.localScale = new Vector3 (initScale, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
 			isDisabled = false;
 		}
 	}
+
 }

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour {
 	public static GameControl instance;
+	public bool isContinue = false;
 	public int score;
 	public int numProj;
 	public int numPow;
@@ -77,9 +78,6 @@ public class GameControl : MonoBehaviour {
 			spawnPowerUp (0);
 			
 		}
-		if(Input.touchCount == 3){
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
-		}
 
         
 	}
@@ -127,20 +125,27 @@ public class GameControl : MonoBehaviour {
 		spawnSpeed = temp;
 
 	}
-
+	public void Continue(){
+		StartCoroutine (PlayerScript.instance.nuke ());
+		StartCoroutine (ContinuePanelScript.instance.TurnOffPanel ());
+		isContinue = true;
+	}
 	public void PlayerDied(){
 
 		//SwitchChar ();
 		StartCoroutine(waitForRestart ());
 	}
+	//TODO: ADD BOOL AND WHILE LOOP, SO DOESNT END IF RESTART
 	IEnumerator waitForRestart(){
-		Save ();
 		yield return new WaitForSeconds(2f);
-		StartCoroutine(GameOverPanelScript.instance.TurnOnPanel ());
-		yield return new WaitForSeconds(50f);
-
-		//SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
-		SceneManager.LoadScene("menu");
+		StartCoroutine(ContinuePanelScript.instance.TurnOnPanel ());
+		yield return new WaitForSeconds(6f);
+		if (isContinue == false) {
+			Save ();
+			SceneManager.LoadScene ("menu");
+		} else {
+			isContinue = false;
+		}
 	}
 
 	public void spawnProj(int projType, Vector3 pos){
@@ -169,7 +174,6 @@ public class GameControl : MonoBehaviour {
 
 	public void spawnPowerUp(int type)
 	{
-
 		GameObject tempPwrUp = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUp"));
 		tempPwrUp.transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), UnityEngine.Random.Range(minY, maxY), 0);
 		tempPwrUp.GetComponent<powerUp>().PowerUpNumber = UnityEngine.Random.Range(0, nmbrOfPowerUps-1);

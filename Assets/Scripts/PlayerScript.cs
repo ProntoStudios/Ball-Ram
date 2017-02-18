@@ -84,11 +84,16 @@ public class PlayerScript : MonoBehaviour {
 			GameControl.instance.rotateSpeed /= 1.1f;
 			yield return new WaitForSeconds (0.02f);
 		}
+		for (int i = 0; i < shieldArr.Count; i++) {
+			StartCoroutine(shieldArr [i].GetComponent<ShieldMainScript> ().disable ());
+		}
+		/*
 		if (GameControl.instance.saveData.character == "weak12") {
 			for (int i = 0; i < shieldArr.Count; i++) {
 				StartCoroutine(shieldArr [i].GetComponent<ShieldMainScript> ().disableFor (300f));
 			}
 		} else {
+			
 			while (shieldArr [0].transform.localScale.x > 0.05f) {
 				GameControl.instance.rotateSpeed /= 1.1f;
 				for (int i = 0; i < shieldArr.Count; i++) {
@@ -99,9 +104,11 @@ public class PlayerScript : MonoBehaviour {
 			for (int i = 0; i < shieldArr.Count; i++) {
 				shieldArr [i].transform.localScale = new Vector3 (0, 0, 0);
 			}
-		}
+
+		}*/
 	}
 	public void Unkill(){
+		GameControl.instance.Continue ();
 		health = 1;
 		alive = true;
 		MonoBehaviour[] scripts = gameObject.GetComponents<MonoBehaviour>();
@@ -109,13 +116,15 @@ public class PlayerScript : MonoBehaviour {
 		{
 			script.enabled = true;
 		}
+		PlayerScript.instance.moveGame.enabled = false;
 		gameObject.GetComponent<SpriteRenderer>().enabled = true;
 		//blobs
 		int numFrames = 30;
 		StartCoroutine(Unkill_Blobs(numFrames));
 		StartCoroutine(Unkill_Player(numFrames));
 		//shiuelds
-		gameObject.GetComponent<CircleCollider2D>().enabled = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = true;
+		//player movegame script is enabled inside the unkill_blob script
 
 	}
 	private IEnumerator Unkill_Blobs(int numFrames){
@@ -131,11 +140,21 @@ public class PlayerScript : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (0.01f);
 		}
+		int initMax = deadBlobArr.Count;
+		for(int i = 0; i < initMax; i++){
+			GameObject.Destroy (deadBlobArr [deadBlobArr.Count-1]);
+			deadBlobArr.Remove (deadBlobArr [deadBlobArr.Count-1]);
+		}
+		PlayerScript.instance.moveGame.enabled = true;
 	}
 	private IEnumerator Unkill_Player(int numFrames){
 		for(int i = numFrames; i > 0; i--){
 			gameObject.transform.localScale = new Vector3 (1.9f/(float)i,1.9f/(float)i,0.1f);
-			yield return new WaitForSeconds (0.01f);
+			yield return new WaitForSeconds (0.1f/(float)i);
+		}
+		GameControl.instance.rotateSpeed = 2.5f;
+		for (int i = 0; i < shieldArr.Count; i++) {
+			StartCoroutine(shieldArr [i].GetComponent<ShieldMainScript> ().enable ());
 		}
 	}
 	void OnCollisionEnter2D(Collision2D node){
@@ -253,14 +272,8 @@ public class PlayerScript : MonoBehaviour {
 		currPowerups [(int)powerups.speedUp] = false;
     }
 
-    IEnumerator barrier(int seconds)
-    {
-        
-        yield return new WaitForSeconds(seconds);
-        moveGame.moveSpeed /= 1.5f;
-    }
 
-	IEnumerator nuke()
+	public IEnumerator nuke()
     {
         for(int i = 0; i < GameControl.instance.projArr.Count; i++)
         {

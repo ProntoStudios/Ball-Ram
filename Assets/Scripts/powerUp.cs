@@ -23,13 +23,15 @@ public class powerUp : MonoBehaviour {
     {
         if(collision.gameObject.name == "Player")
         {
-			//PowerUpNumber = 3;
+			PowerUpNumber = 0;
 			if (PlayerScript.instance.numCurrPowerups >= System.Enum.GetNames (typeof(PlayerScript.powerups)).Length) {
 				PowerUpNumber = 0;
 			} else {
+				int temp = 0;
 				do{
 					powerUpNumber = Random.Range (0, System.Enum.GetNames(typeof(PlayerScript.powerups)).Length);
-				}while(PlayerScript.instance.currPowerups[PowerUpNumber] == true);
+					temp++;
+				}while(PlayerScript.instance.currPowerups[PowerUpNumber] == true && temp < 30);
 			}
 
 
