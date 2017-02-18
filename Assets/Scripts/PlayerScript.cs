@@ -8,15 +8,19 @@ public class PlayerScript : MonoBehaviour {
     private int powerUp;
 	private Rigidbody2D rb2d;
 	public int health;
+	public bool alive = true;
 	private int numShield;
 	public List<GameObject> shieldArr;
 	public bool weakShields;
 	private Vector3 zAxis = new Vector3 (0,0,1);
     public Image powUpRec;
     private MoveGame moveGame;
+
 	public enum powerups { speedUp, heal, barrier, moreShields, nuke, cash };
 	public bool[] currPowerups = new bool[System.Enum.GetNames(typeof(powerups)).Length];
 	public int numCurrPowerups = 0;
+
+	public List<GameObject> deadBlobArr;
 
     // Use this for initialization
     void Start () {
@@ -52,7 +56,8 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(health < 1){
+		if(health < 1 && alive){
+			alive = false;
 			rb2d.velocity = Vector2.zero;
 			//StartCoroutine (delShield (3, 0.5f));
 			for (int i = 0; i < 7; i++) {
@@ -60,6 +65,7 @@ public class PlayerScript : MonoBehaviour {
 				tempBlob.GetComponent<Rigidbody2D>().velocity = new Vector2 (UnityEngine.Random.Range(-20, 20)/10f, UnityEngine.Random.Range(-20,20)/10f);
 				float scale = UnityEngine.Random.Range (0.8f, 1.2f);
 				tempBlob.transform.localScale = new Vector3 (scale, scale, 0);
+				deadBlobArr.Add (tempBlob);
 			}
 			StartCoroutine (shieldEndAnim());
 			MonoBehaviour[] scripts = gameObject.GetComponents<MonoBehaviour>();
@@ -76,7 +82,7 @@ public class PlayerScript : MonoBehaviour {
 	IEnumerator shieldEndAnim(){
 		while (GameControl.instance.rotateSpeed > 0.5f) {
 			GameControl.instance.rotateSpeed /= 1.1f;
-			yield return new WaitForSeconds (0.05f);
+			yield return new WaitForSeconds (0.02f);
 		}
 		if (GameControl.instance.saveData.character == "weak12") {
 			for (int i = 0; i < shieldArr.Count; i++) {
@@ -93,6 +99,43 @@ public class PlayerScript : MonoBehaviour {
 			for (int i = 0; i < shieldArr.Count; i++) {
 				shieldArr [i].transform.localScale = new Vector3 (0, 0, 0);
 			}
+		}
+	}
+	public void Unkill(){
+		health = 1;
+		alive = true;
+		MonoBehaviour[] scripts = gameObject.GetComponents<MonoBehaviour>();
+		foreach(MonoBehaviour script in scripts)
+		{
+			script.enabled = true;
+		}
+		gameObject.GetComponent<SpriteRenderer>().enabled = true;
+		//blobs
+		int numFrames = 30;
+		StartCoroutine(Unkill_Blobs(numFrames));
+		StartCoroutine(Unkill_Player(numFrames));
+		//shiuelds
+		gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+	}
+	private IEnumerator Unkill_Blobs(int numFrames){
+		List<Vector2> deadShift = new List<Vector2>();
+		for (int i = 0; i < 7; i++) {
+			Vector2 temp = PlayerScript.instance.transform.position - deadBlobArr [i].transform.position;
+			temp.Scale(new Vector2(1f/(float)numFrames, 1f/(float)numFrames));
+			deadShift.Add(temp);
+		}
+		for(int i =0; i <numFrames; i++){
+			for(int j = 0; j < 7; j++){
+				deadBlobArr [j].transform.position = (Vector2)deadBlobArr [j].transform.position + (Vector2)deadShift[j];
+			}
+			yield return new WaitForSeconds (0.01f);
+		}
+	}
+	private IEnumerator Unkill_Player(int numFrames){
+		for(int i = numFrames; i > 0; i--){
+			gameObject.transform.localScale = new Vector3 (1.9f/(float)i,1.9f/(float)i,0.1f);
+			yield return new WaitForSeconds (0.01f);
 		}
 	}
 	void OnCollisionEnter2D(Collision2D node){
@@ -127,8 +170,8 @@ public class PlayerScript : MonoBehaviour {
 				}
                 break;
 
-		case (int)powerups.nuke:
-			StartCoroutine (nuke ());
+			case (int)powerups.nuke:
+				StartCoroutine (nuke ());
                 break;
 
 			case (int)powerups.cash:

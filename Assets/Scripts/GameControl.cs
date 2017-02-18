@@ -56,6 +56,7 @@ public class GameControl : MonoBehaviour {
 		//save file stuff
 		//File.Delete (Application.persistentDataPath + "/playerInfo.dat");
 		Load();
+		saveData.character = "default";
 		if (saveData.character == "default") {
 			initShields = 3;
 		}
@@ -129,12 +130,14 @@ public class GameControl : MonoBehaviour {
 
 	public void PlayerDied(){
 
-		SwitchChar ();
+		//SwitchChar ();
 		StartCoroutine(waitForRestart ());
 	}
 	IEnumerator waitForRestart(){
-		yield return new WaitForSeconds(3f);
 		Save ();
+		yield return new WaitForSeconds(2f);
+		StartCoroutine(GameOverPanelScript.instance.TurnOnPanel ());
+		yield return new WaitForSeconds(50f);
 
 		//SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex); //restarts game
 		SceneManager.LoadScene("menu");
