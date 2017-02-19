@@ -20,6 +20,13 @@ public class ContinueTextScript : MonoBehaviour {
 	}
 	public IEnumerator MoveIn(){
 		ContinueText = GetComponent<Text> ();
+		if (ContinuePanelScript.instance.continueType == 0) {
+			ContinueText.text = "Free continue...";
+		} else if (ContinuePanelScript.instance.continueType == 1) {
+			ContinueText.text = "100 coins to continue...";
+		} else {
+			ContinueText.text = "Watch ad to continue...";
+		}
 		float speed = -25f;
 		float accel = ((speed*speed - (9))/(2f*moveDist));
 		while (speed < 3f) {
@@ -28,7 +35,14 @@ public class ContinueTextScript : MonoBehaviour {
 			yield return new WaitForSeconds (0.005f);
 		}
 		for (int i = 5; i > 0; i--) {
-			ContinueText.text = "Watch ad to continue..." + i;
+			if (ContinuePanelScript.instance.continueType == 0) {
+				ContinueText.text = "Free continue..." + i;
+			} else if (ContinuePanelScript.instance.continueType == 1) {
+				ContinueText.text = "100 coins to continue..." + i;
+			} else {
+				ContinueText.text = "Watch ad to continue..." + i;
+			}
+
 			yield return new WaitForSeconds (1f);
 		}
 

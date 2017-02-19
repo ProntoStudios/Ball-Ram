@@ -136,11 +136,22 @@ public class GameControl : MonoBehaviour {
 		//SwitchChar ();
 		StartCoroutine(waitForRestart ());
 	}
-	//TODO: ADD BOOL AND WHILE LOOP, SO DOESNT END IF RESTART
 	IEnumerator waitForRestart(){
 		yield return new WaitForSeconds(2f);
-		StartCoroutine(ContinuePanelScript.instance.TurnOnPanel ());
-		yield return new WaitForSeconds(6f);
+		int rand = UnityEngine.Random.Range (0, 20);
+		if (rand == 0) {
+			StartCoroutine(ContinuePanelScript.instance.TurnOnPanel (0));
+			yield return new WaitForSeconds(6f);
+		} else if (1 <= rand && rand <= 3) {
+			if (saveData.coinBank > 100){
+				StartCoroutine(ContinuePanelScript.instance.TurnOnPanel (1));
+				yield return new WaitForSeconds(6f);
+			}
+		}else if (4 <= rand && rand <= 8) {
+			StartCoroutine(ContinuePanelScript.instance.TurnOnPanel (2));
+			yield return new WaitForSeconds(6f);
+		}
+
 		if (isContinue == false) {
 			Save ();
 			SceneManager.LoadScene ("menu");
@@ -230,7 +241,7 @@ public class GameControl : MonoBehaviour {
 			break;
 		}
 	}
-	private IEnumerator waitAndUnkill(){
+	public IEnumerator waitAndUnkill(){
 		yield return new WaitForSeconds (0.5f);
 		StartCoroutine(ContinuePanelScript.instance.TurnOffPanel ());
 		yield return new WaitForSeconds (0.5f);

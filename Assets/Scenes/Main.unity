@@ -704,6 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOn: 0
+  continueType: 0
 --- !u!1 &813366693
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,8 +2141,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 940175332}
-        m_MethodName: ShowRewardedAd
+      - m_Target: {fileID: 789079160}
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

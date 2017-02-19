@@ -6,6 +6,7 @@ public class ContinuePanelScript : MonoBehaviour {
 	public static ContinuePanelScript instance;
 	private GameObject continuePanel;
 	public bool isOn = false;
+	public int continueType;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,8 @@ public class ContinuePanelScript : MonoBehaviour {
 		continuePanel.SetActive(false);
 
 	}
-	public IEnumerator TurnOnPanel(){
+	public IEnumerator TurnOnPanel(int type){
+		continueType = type;
 		if (!isOn) {
 			isOn = true;
 			continuePanel.SetActive (true);
@@ -45,6 +47,16 @@ public class ContinuePanelScript : MonoBehaviour {
 			continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (0f);
 			yield return new WaitForSeconds (2f);
 			continuePanel.SetActive (false);
+		}
+	}
+	public void Continue(){
+		if (continueType == 1) {
+			GameControl.instance.saveData.coinBank -= 100;
+			StartCoroutine (GameControl.instance.waitAndUnkill());
+		} else if (continueType == 2) {
+			GameControl.instance.ShowRewardedAd ();
+		} else {
+			StartCoroutine (GameControl.instance.waitAndUnkill());
 		}
 	}
 
