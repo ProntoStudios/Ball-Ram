@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class GameControl : MonoBehaviour {
 	public static GameControl instance;
 	public bool isContinue = false;
+	public bool hasContinued = false;
 	public int score;
 	public int numProj;
 	public int numPow;
@@ -138,18 +139,21 @@ public class GameControl : MonoBehaviour {
 	}
 	IEnumerator waitForRestart(){
 		yield return new WaitForSeconds(2f);
-		int rand = UnityEngine.Random.Range (0, 20);
-		if (rand == 0) {
-			StartCoroutine(ContinuePanelScript.instance.TurnOnPanel (0));
-			yield return new WaitForSeconds(6f);
-		} else if (1 <= rand && rand <= 3) {
-			if (saveData.coinBank > 100){
-				StartCoroutine(ContinuePanelScript.instance.TurnOnPanel (1));
-				yield return new WaitForSeconds(6f);
+		if (hasContinued == false) {
+			hasContinued = true;
+			int rand = UnityEngine.Random.Range (0, 20);
+			if (rand == 0) {
+				StartCoroutine (ContinuePanelScript.instance.TurnOnPanel (0));
+				yield return new WaitForSeconds (6f);
+			} else if (1 <= rand && rand <= 3) {
+				if (saveData.coinBank > 100) {
+					StartCoroutine (ContinuePanelScript.instance.TurnOnPanel (1));
+					yield return new WaitForSeconds (6f);
+				}
+			} else if (4 <= rand && rand <= 8) {
+				StartCoroutine (ContinuePanelScript.instance.TurnOnPanel (2));
+				yield return new WaitForSeconds (6f);
 			}
-		}else if (4 <= rand && rand <= 8) {
-			StartCoroutine(ContinuePanelScript.instance.TurnOnPanel (2));
-			yield return new WaitForSeconds(6f);
 		}
 
 		if (isContinue == false) {
