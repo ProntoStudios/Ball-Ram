@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RetryButtonScript : MonoBehaviour {
-	public static RetryButtonScript instance;
+public class ContinueButtonScript : MonoBehaviour {
+	public static ContinueButtonScript instance;
 	private float moveDist;
 
 	// Use this for initialization

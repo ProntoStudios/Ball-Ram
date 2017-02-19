@@ -9,7 +9,7 @@ public class ContinuePanelScript : MonoBehaviour {
 	public int continueType;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (instance == null) {
 			instance = this;
 		} else if (instance != this) {
@@ -30,14 +30,14 @@ public class ContinuePanelScript : MonoBehaviour {
 			}
 			continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (1f);
 
-			StartCoroutine (RetryButtonScript.instance.MoveIn ());
+			StartCoroutine (ContinueButtonScript.instance.MoveIn ());
 			StartCoroutine (ContinueTextScript.instance.MoveIn ());
 		}
 	}
 	public IEnumerator TurnOffPanel(){
 		if (isOn) {
 			isOn = false;
-			StartCoroutine (RetryButtonScript.instance.MoveOut ());
+			StartCoroutine (ContinueButtonScript.instance.MoveOut ());
 			StartCoroutine (ContinueTextScript.instance.MoveOut ());
 
 			for (float i = 1f; i > 0f; i -= 0.1f) {

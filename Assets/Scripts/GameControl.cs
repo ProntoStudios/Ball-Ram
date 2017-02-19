@@ -12,6 +12,7 @@ public class GameControl : MonoBehaviour {
 	public static GameControl instance;
 	public bool isContinue = false;
 	public bool hasContinued = false;
+	public bool newHighscore = false;
 	public int score;
 	public int numProj;
 	public int numPow;
@@ -95,6 +96,11 @@ public class GameControl : MonoBehaviour {
 		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
 
 		saveData.coinBank += coinTot;
+		if (score > saveData.highscore) {
+			saveData.highscore = score;
+			newHighscore = true;
+		}
+		Debug.Log (saveData.highscore);
 		bf.Serialize (file, saveData);
 		file.Close ();
 	}
@@ -110,6 +116,7 @@ public class GameControl : MonoBehaviour {
 			saveData.character = "default";
 
 			saveData.leftHanded = false;
+			saveData.highscore = 0;
 		}
 		//Debug.Log ("coinBank: " + saveData.coinBank.ToString());
 	}
@@ -119,6 +126,7 @@ public class GameControl : MonoBehaviour {
 		public long coinBank;
 		public string character;
 		public bool leftHanded;
+		public int highscore;
 	}
 	IEnumerator tempSpawnSpeedup(){
 		float temp = spawnSpeed;
@@ -158,7 +166,8 @@ public class GameControl : MonoBehaviour {
 
 		if (isContinue == false) {
 			Save ();
-			SceneManager.LoadScene ("menu");
+			StartCoroutine (GameOverPanelScript.instance.TurnOnPanel ());
+			//SceneManager.LoadScene ("menu");
 		} else {
 			isContinue = false;
 		}
