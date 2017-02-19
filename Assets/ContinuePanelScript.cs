@@ -5,6 +5,7 @@ using UnityEngine;
 public class ContinuePanelScript : MonoBehaviour {
 	public static ContinuePanelScript instance;
 	private GameObject continuePanel;
+	public bool isOn = false;
 
 	// Use this for initialization
 	void Start () {
@@ -18,26 +19,34 @@ public class ContinuePanelScript : MonoBehaviour {
 
 	}
 	public IEnumerator TurnOnPanel(){
-		continuePanel.SetActive (true);
-		for(float i = 0; i < 1f; i+= 0.08f){
-			continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (i);
-			yield return new WaitForSeconds (0.01f);
-		}
-		continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (1f);
+		if (!isOn) {
+			isOn = true;
+			continuePanel.SetActive (true);
+			for (float i = 0; i < 1f; i += 0.08f) {
+				continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (i);
+				yield return new WaitForSeconds (0.01f);
+			}
+			continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (1f);
 
-		StartCoroutine(RetryButtonScript.instance.MoveIn ());
-		StartCoroutine(ContinueTextScript.instance.MoveIn ());
+			StartCoroutine (RetryButtonScript.instance.MoveIn ());
+			StartCoroutine (ContinueTextScript.instance.MoveIn ());
+		}
 	}
 	public IEnumerator TurnOffPanel(){
-		StartCoroutine(RetryButtonScript.instance.MoveOut ());
-		StartCoroutine(ContinueTextScript.instance.MoveOut ());
+		if (isOn) {
+			isOn = false;
+			StartCoroutine (RetryButtonScript.instance.MoveOut ());
+			StartCoroutine (ContinueTextScript.instance.MoveOut ());
 
-		for(float i = 1f; i > 0f; i-= 0.1f){
-			continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (i);
-			yield return new WaitForSeconds (0.01f);
+			for (float i = 1f; i > 0f; i -= 0.1f) {
+				continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (i);
+				yield return new WaitForSeconds (0.01f);
+			}
+			continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (0f);
+			yield return new WaitForSeconds (2f);
+			continuePanel.SetActive (false);
 		}
-		continuePanel.GetComponent<CanvasRenderer> ().SetAlpha (0f);
-		yield return new WaitForSeconds (2f);
-		continuePanel.SetActive (false);
 	}
+
+
 }

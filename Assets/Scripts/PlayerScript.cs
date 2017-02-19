@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviour {
 		PlayerScript.instance.moveGame.enabled = false;
 		gameObject.GetComponent<SpriteRenderer>().enabled = true;
 		//blobs
-		int numFrames = 30;
+		int numFrames = 60;
 		StartCoroutine(Unkill_Blobs(numFrames));
 		StartCoroutine(Unkill_Player(numFrames));
 		//shiuelds
@@ -148,9 +148,9 @@ public class PlayerScript : MonoBehaviour {
 		PlayerScript.instance.moveGame.enabled = true;
 	}
 	private IEnumerator Unkill_Player(int numFrames){
-		for(int i = numFrames; i > 0; i--){
-			gameObject.transform.localScale = new Vector3 (1.9f/(float)i,1.9f/(float)i,0.1f);
-			yield return new WaitForSeconds (0.1f/(float)i);
+		for(int i = 1; i <= numFrames; i++){
+			gameObject.transform.localScale = new Vector3 (1.9f*(float)i/(float)numFrames,1.9f*(float)i/(float)numFrames,0.1f);
+			yield return new WaitForSeconds (0.01f);
 		}
 		GameControl.instance.rotateSpeed = 2.5f;
 		for (int i = 0; i < shieldArr.Count; i++) {
@@ -166,7 +166,6 @@ public class PlayerScript : MonoBehaviour {
     //enum powerups { heal, speedUp, barrier, moreShields, nuke, cash};
     public void activatePowerUp(int powerUpNmbr)
     {
-        Debug.Log(powerUpNmbr);
 		numCurrPowerups++;
 		currPowerups [powerUpNmbr] = true;
         switch (powerUpNmbr)

@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -109,7 +110,7 @@ public class GameControl : MonoBehaviour {
 
 			saveData.leftHanded = false;
 		}
-		Debug.Log ("coinBank: " + saveData.coinBank.ToString());
+		//Debug.Log ("coinBank: " + saveData.coinBank.ToString());
 	}
 
 	[Serializable]
@@ -201,5 +202,39 @@ public class GameControl : MonoBehaviour {
         levelText.text = "";
         levelText.fontSize = minFont;
     }
+	public void ShowRewardedAd()
+	{
+		if (Advertisement.IsReady("rewardedVideo"))
+		{
+			Time.timeScale = 0;
+
+			var options = new ShowOptions { resultCallback = HandleShowResult };
+			Advertisement.Show("rewardedVideo", options);
+		}
+	}
+
+	private void HandleShowResult(ShowResult result)
+	{
+		Time.timeScale = 1;
+		switch (result)
+		{
+		case ShowResult.Finished:
+			Debug.Log ("The ad was successfully shown.");
+			StartCoroutine (waitAndUnkill());
+			break;
+		case ShowResult.Skipped:
+			Debug.Log("The ad was skipped before reaching the end.");
+			break;
+		case ShowResult.Failed:
+			Debug.LogError("The ad failed to be shown.");
+			break;
+		}
+	}
+	private IEnumerator waitAndUnkill(){
+		yield return new WaitForSeconds (0.5f);
+		StartCoroutine(ContinuePanelScript.instance.TurnOffPanel ());
+		yield return new WaitForSeconds (0.5f);
+		PlayerScript.instance.Unkill ();
+	}
 
 }

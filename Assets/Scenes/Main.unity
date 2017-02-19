@@ -703,6 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e118c2a0c64e04af58cec086659524a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOn: 0
 --- !u!1 &813366693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,7 +1915,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 457442923
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e35442181b82c094e97254fbdfaf0f8d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1999,7 +2000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  onPhone: 1
+  onPhone: 0
 --- !u!1 &1473716784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,8 +2140,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1359303844}
-        m_MethodName: Unkill
+      - m_Target: {fileID: 940175332}
+        m_MethodName: ShowRewardedAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
