@@ -49,9 +49,11 @@ public class PlayerScript : MonoBehaviour {
 			tempShield.name = "ShieldMain" + i.ToString ();
 
 			tempShield.transform.RotateAround ((Vector3) gameObject.transform.position, zAxis, shieldDist*i);
-
+			tempShield.transform.localScale = new Vector3 (0, tempShield.transform.localScale.y, tempShield.transform.localScale.z);
+			StartCoroutine(tempShield.GetComponent<ShieldMainScript> ().enable ());
 			shieldArr.Add (tempShield);
 		}
+
 	}
 	
 	// Update is called once per frame
@@ -125,7 +127,6 @@ public class PlayerScript : MonoBehaviour {
 		//shiuelds
 		gameObject.GetComponent<CircleCollider2D>().enabled = true;
 		//player movegame script is enabled inside the unkill_blob script
-
 	}
 	private IEnumerator Unkill_Blobs(int numFrames){
 		List<Vector2> deadShift = new List<Vector2>();

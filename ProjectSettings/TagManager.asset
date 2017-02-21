@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Spawner
   - PowerUp
+  - Interface
   layers:
   - Default
   - TransparentFX

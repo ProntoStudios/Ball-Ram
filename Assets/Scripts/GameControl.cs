@@ -84,6 +84,12 @@ public class GameControl : MonoBehaviour {
 
         
 	}
+	public void restart(){
+		SceneManager.LoadScene ("Scenes/Main");
+	}
+	public void quitToMenu(){
+		SceneManager.LoadScene ("menu");
+	}
 	public void SwitchChar(){
 		if (saveData.character == "default") {
 			saveData.character = "weak12";
@@ -100,7 +106,7 @@ public class GameControl : MonoBehaviour {
 			saveData.highscore = score;
 			newHighscore = true;
 		}
-		Debug.Log (saveData.highscore);
+		//Debug.Log (saveData.highscore);
 		bf.Serialize (file, saveData);
 		file.Close ();
 	}
@@ -147,7 +153,7 @@ public class GameControl : MonoBehaviour {
 	}
 	IEnumerator waitForRestart(){
 		yield return new WaitForSeconds(2f);
-		if (hasContinued == false) {
+		if (hasContinued == false && score > 50) {
 			hasContinued = true;
 			int rand = UnityEngine.Random.Range (0, 20);
 			if (rand == 0) {
@@ -166,6 +172,11 @@ public class GameControl : MonoBehaviour {
 
 		if (isContinue == false) {
 			Save ();
+			GameObject []interfaces = GameObject.FindGameObjectsWithTag("Interface");
+			foreach (GameObject i in interfaces) {
+				i.SetActive(false);
+			}
+				
 			StartCoroutine (GameOverPanelScript.instance.TurnOnPanel ());
 			//SceneManager.LoadScene ("menu");
 		} else {
@@ -226,6 +237,7 @@ public class GameControl : MonoBehaviour {
         levelText.text = "";
         levelText.fontSize = minFont;
     }
+
 	public void ShowRewardedAd()
 	{
 		if (Advertisement.IsReady("rewardedVideo"))
@@ -254,6 +266,7 @@ public class GameControl : MonoBehaviour {
 			break;
 		}
 	}
+
 	public IEnumerator waitAndUnkill(){
 		yield return new WaitForSeconds (0.5f);
 		StartCoroutine(ContinuePanelScript.instance.TurnOffPanel ());

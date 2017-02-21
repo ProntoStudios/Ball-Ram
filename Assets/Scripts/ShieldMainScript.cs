@@ -11,7 +11,7 @@ public class ShieldMainScript : MonoBehaviour {
 	private float initScale;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		GameControl.instance.rotateSpeed = 2.5f;
 		spRd = gameObject.GetComponent<SpriteRenderer> ();
 		if (GameControl.instance.saveData.character == "weak12") {
@@ -19,7 +19,7 @@ public class ShieldMainScript : MonoBehaviour {
 		} else {
 			weakShields = false;
 		}
-		initScale = gameObject.transform.localScale.x;
+		initScale = 0.8f;
 	}
 	
 	// Update is called once per frame

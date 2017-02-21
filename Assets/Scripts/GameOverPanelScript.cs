@@ -28,8 +28,10 @@ public class GameOverPanelScript : MonoBehaviour {
 			StartCoroutine (ExitButtonScript.instance.MoveIn ());
 			StartCoroutine (RetryButtonScript.instance.MoveIn ());
 			StartCoroutine (HighscoreTextScript.instance.MoveIn ());
+			StartCoroutine (ScoreMoveScript.instance.MoveIn ());
 		}
 	}
+	/*
 	public IEnumerator TurnOffPanel(){
 		if (isOn) {
 			isOn = false;
@@ -47,4 +49,5 @@ public class GameOverPanelScript : MonoBehaviour {
 			gameObject.SetActive (false);
 		}
 	}
+	*/
 }

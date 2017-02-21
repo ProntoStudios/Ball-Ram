@@ -52,7 +52,7 @@ public class CoinScript : MonoBehaviour {
 			if (!deleted) {
 				GameObject.Destroy (gameObject);
 				GameControl.instance.coinTot++;
-				Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
+				//Debug.Log ("Coin: " + GameControl.instance.coinTot.ToString ());
 				deleted = true;
 			}
 		}

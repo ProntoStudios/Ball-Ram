@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HighscoreTextScript : MonoBehaviour {
-	public static HighscoreTextScript instance;
-	public Text HighscoreText;
+public class ScoreMoveScript : MonoBehaviour {
+	public static ScoreMoveScript instance;
 	private float moveDist;
-
+	public Text EndScoreText;
 	// Use this for initialization
 	void Start () {
 		if (instance == null) {
@@ -15,16 +14,13 @@ public class HighscoreTextScript : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
-		moveDist = (float)GameOverPanelScript.instance.gameObject.GetComponent<RectTransform>().rect.height/3f + 50f;
-		
+		moveDist = (float)GameOverPanelScript.instance.gameObject.GetComponent<RectTransform>().rect.height/8f + 50f;
+
 	}
 	public IEnumerator MoveIn(){
-		HighscoreText = GetComponent<Text> ();
-		HighscoreText.text = "Highscore: " + GameControl.instance.saveData.highscore;
-		if (GameControl.instance.newHighscore) {
-			HighscoreText.text = HighscoreText.text + "!";
-		}
-		float speed = -25f;
+		EndScoreText = GetComponent<Text> ();
+		EndScoreText.text = "Score: " + GameControl.instance.score;
+		float speed = -20f;
 		float accel = ((speed*speed - (9))/(2f*moveDist));
 		while (speed < 3f) {
 			gameObject.transform.localPosition = new Vector2 (gameObject.transform.localPosition.x, gameObject.transform.localPosition.y + speed);
@@ -34,7 +30,7 @@ public class HighscoreTextScript : MonoBehaviour {
 	}
 
 	public IEnumerator MoveOut(){
-		float speed = 25f;
+		float speed = 20f;
 		float accel = -((speed*speed - (9))/(2f*moveDist));
 		while (speed > -3f) {
 			gameObject.transform.localPosition = new Vector2 (gameObject.transform.localPosition.x, gameObject.transform.localPosition.y + speed);
