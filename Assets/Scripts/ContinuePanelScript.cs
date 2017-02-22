@@ -50,6 +50,7 @@ public class ContinuePanelScript : MonoBehaviour {
 		}
 	}
 	public void Continue(){
+		GameControl.instance.isContinue = true;
 		if (continueType == 1) {
 			GameControl.instance.saveData.coinBank -= 100;
 			StartCoroutine (GameControl.instance.waitAndUnkill());
