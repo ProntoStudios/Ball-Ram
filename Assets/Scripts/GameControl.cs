@@ -31,6 +31,7 @@ public class GameControl : MonoBehaviour {
     public Text levelText;
         public int maxfont = 72;
         public int minFont = 10;
+	GameObject []interfaces;
 
     public List<GameObject> powArr;
 	private float minX = -25, maxX = 25, minY = -15, maxY = 15;
@@ -70,7 +71,9 @@ public class GameControl : MonoBehaviour {
 		if (saveData.leftHanded) {
 		}
 	}
-
+	void Start(){
+		interfaces = GameObject.FindGameObjectsWithTag("Interface");
+	}
 	// Update is called once per frame
 	void Update () {
 		if (numDead / (level * 3) > 0) {
@@ -150,10 +153,11 @@ public class GameControl : MonoBehaviour {
 
 		//SwitchChar ();
 		StartCoroutine(waitForRestart ());
+		InterfaceOff ();
 	}
 	IEnumerator waitForRestart(){
 		yield return new WaitForSeconds(2f);
-		if (hasContinued == false && score > 50) {
+		if (hasContinued == false && score > 0) {
 			hasContinued = true;
 			int rand = UnityEngine.Random.Range (0, 20);
 			if (rand == 0) {
@@ -172,11 +176,7 @@ public class GameControl : MonoBehaviour {
 
 		if (isContinue == false) {
 			Save ();
-			GameObject []interfaces = GameObject.FindGameObjectsWithTag("Interface");
-			foreach (GameObject i in interfaces) {
-				i.SetActive(false);
-			}
-				
+			StartCoroutine (ContinuePanelScript.instance.TurnOffPanel());
 			StartCoroutine (GameOverPanelScript.instance.TurnOnPanel ());
 			//SceneManager.LoadScene ("menu");
 		} else {
@@ -273,5 +273,14 @@ public class GameControl : MonoBehaviour {
 		yield return new WaitForSeconds (0.5f);
 		PlayerScript.instance.Unkill ();
 	}
-
+	public void InterfaceOff(){
+		foreach (GameObject i in interfaces) {
+			i.SetActive(false);
+		}
+	}
+	public void InterfaceOn(){
+		foreach (GameObject i in interfaces) {
+			i.SetActive(true);
+		}
+	}
 }

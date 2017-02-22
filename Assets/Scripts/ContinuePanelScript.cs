@@ -58,6 +58,7 @@ public class ContinuePanelScript : MonoBehaviour {
 		} else {
 			StartCoroutine (GameControl.instance.waitAndUnkill());
 		}
+		GameControl.instance.InterfaceOn ();
 	}
 
 
