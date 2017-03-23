@@ -2195,7 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  onPhone: 1
+  onPhone: 0
 --- !u!1 &1399275133
 GameObject:
   m_ObjectHideFlags: 0

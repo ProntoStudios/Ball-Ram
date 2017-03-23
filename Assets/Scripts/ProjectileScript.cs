@@ -8,6 +8,7 @@ public class ProjectileScript : MonoBehaviour {
 	private float minSpeed, maxSpeed;
 	public int health;
 	private bool invulnerble = false;
+	private bool isDead = false;
 
 	// Use this for initialization
 	void Start () {
@@ -21,16 +22,18 @@ public class ProjectileScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if (health < 1 && !isDead) {
+			isDead = true;
+			Debug.Log (trans.position);
+			GetComponent<AudioSource> ().Play ();
+			killProj ();
+
+		}
 	}
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Shield" && !invulnerble) {
 			health--;
-			if (health < 1) {
-				killProj ();
-			} else {
-				StartCoroutine (tempInv ());
-			}
-			
+			if (health > 0) StartCoroutine (tempInv ());;
 		}
 		else if (node.gameObject.name == "Player") {
 			GameControl.instance.deleteProj (gameObject);
@@ -45,7 +48,7 @@ public class ProjectileScript : MonoBehaviour {
     {
         while (trans.localScale.x > 0.1f && trans.localScale.y > 0.1f && trans.localScale.z > 0.1f)
         {
-			trans.localScale = new Vector3(trans.localScale.x/1.15f, trans.localScale.y/1.15f, trans.localScale.z/1.15f);
+			trans.localScale = new Vector3(trans.localScale.x/1.3f, trans.localScale.y/1.3f, trans.localScale.z/1.3f);
             yield return new WaitForSeconds(0.01f);
             
         }
