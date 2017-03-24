@@ -28,6 +28,7 @@ public class GameControl : MonoBehaviour {
 	public float rotateSpeed;
 
     public Text scoreText;
+	public Text coinText;
     public Text levelText;
         public int maxfont = 72;
         public int minFont = 10;
@@ -56,7 +57,7 @@ public class GameControl : MonoBehaviour {
         levelText.text = "";
         levelText.fontSize = minFont;
         setScoreText();
-
+		coinText = GameObject.Find ("coinText").GetComponent<Text> ();
 
 		//save file stuff
 		//File.Delete (Application.persistentDataPath + "/playerInfo.dat");
@@ -222,6 +223,11 @@ public class GameControl : MonoBehaviour {
     {
         scoreText.text = "Score: " + score.ToString();
     }
+	public void setCoinText()
+	{
+		
+		coinText.text = "Coins: " + coinTot.ToString();
+	}
 
     IEnumerator levelPopup()
     {
