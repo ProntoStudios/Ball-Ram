@@ -20,6 +20,7 @@ public class ShieldMainScript : MonoBehaviour {
 			weakShields = false;
 		}
 		initScale = 0.8f;
+		StartCoroutine(spawnParticleLoop (0.08f));
 	}
 	
 	// Update is called once per frame
@@ -33,6 +34,11 @@ public class ShieldMainScript : MonoBehaviour {
 		gameObject.transform.RotateAround ((Vector3) playerPos, zAxis, GameControl.instance.rotateSpeed);
 		//gameObject.transform.localScale = (Vector3)gameObject.transform.localScale + new Vector3 (0.1f,0,0);
 
+	}
+	private IEnumerator spawnParticleLoop(float pauseDur){
+		Instantiate (Resources.Load<GameObject> ("Prefabs/ShieldParticle"), gameObject.transform.position, Quaternion.Euler (0, 0, 0));
+		yield return new WaitForSeconds (pauseDur);
+		StartCoroutine(spawnParticleLoop (pauseDur));
 	}
 	void OnCollisionEnter2D(Collision2D node){
 		if (node.gameObject.tag == "Projectile") {
