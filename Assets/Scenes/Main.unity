@@ -2255,7 +2255,7 @@ MonoBehaviour:
   alive: 1
   shieldArr: []
   weakShields: 0
-  powUpRec: {fileID: 0}
+  powIconArr: []
   currPowerups: 000000000000
   numCurrPowerups: 0
   deadBlobArr: []

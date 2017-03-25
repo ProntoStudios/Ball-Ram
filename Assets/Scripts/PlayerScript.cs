@@ -13,10 +13,10 @@ public class PlayerScript : MonoBehaviour {
 	public List<GameObject> shieldArr;
 	public bool weakShields;
 	private Vector3 zAxis = new Vector3 (0,0,1);
-    public Image powUpRec;
+	public List<GameObject>powIconArr;
     private MoveGame moveGame;
 
-	public enum powerups { speedUp, heal, barrier, moreShields, nuke, cash };
+	public enum powerups { speedUp, moreShields, nuke, cash };
 	public bool[] currPowerups = new bool[System.Enum.GetNames(typeof(powerups)).Length];
 	public int numCurrPowerups = 0;
 
@@ -169,35 +169,56 @@ public class PlayerScript : MonoBehaviour {
     {
 		numCurrPowerups++;
 		currPowerups [powerUpNmbr] = true;
+
+		GameObject tempIcon = null;
+
+		float actTime = 0;
         switch (powerUpNmbr)
 		{
 
 			case (int)powerups.speedUp: //speedUp
-				StartCoroutine(speedUpForSeconds(5));
-				break;
-
-            case (int)powerups.heal: //HEAL
-                break;
-
-            case (int)powerups.barrier: //barrier
-                //shield powerup stuff here
-                break;
+				actTime = 5f;
+				tempIcon = Instantiate(Resources.Load<GameObject>("Prefabs/Powerup_Icon_Speed"));
+				StartCoroutine(speedUpForSeconds(actTime));
+				break;     
 
 			case (int)powerups.moreShields:
+				actTime = 10f;
+				tempIcon = Instantiate(Resources.Load<GameObject>("Prefabs/Powerup_Icon_Shield"));
 				if (GameControl.instance.saveData.character == "default") {
 					StartCoroutine (addShield (12 - shieldArr.Count, 3f / (float)(12 - GameControl.instance.initShields)));
 				}
                 break;
 
 			case (int)powerups.nuke:
+				actTime = 0;
+				tempIcon = Instantiate(Resources.Load<GameObject>("Prefabs/Powerup_Icon"));
 				StartCoroutine (nuke ());
                 break;
 
 			case (int)powerups.cash:
-				StartCoroutine(boostCoinOdds(10f));
+				actTime = 10f;
+				tempIcon = Instantiate(Resources.Load<GameObject>("Prefabs/Powerup_Icon_Cash"));
+				StartCoroutine(boostCoinOdds(actTime));
 				break;
         }
+		powIconArr.Add (tempIcon);
+		powIconArr [powIconArr.Count - 1].GetComponent<PowerUpIconScript> ().setSlotPosition (powIconArr.Count - 1);
+		powIconArr [powIconArr.Count - 1].transform.SetParent(GameObject.Find("Canvas").transform,false);
+		StartCoroutine(powIconArr [powIconArr.Count - 1].GetComponent<PowerUpIconScript> ().activate (actTime));
     }
+	public void removePowIconArr(int slot){
+		Debug.Log ("REMOVING ICON " + slot);
+		if (slot < powIconArr.Count) {
+			GameObject.Destroy (powIconArr[slot]);
+			powIconArr.RemoveAt (slot);
+			for(int i = slot; i < powIconArr.Count; i++){
+				powIconArr[i].GetComponent<PowerUpIconScript> ().setSlotPosition (i);
+			}
+		} else {
+			Debug.Log ("DELETE POW ICON ERROR. SLOT:" + slot);
+		}
+	}
 	IEnumerator boostCoinOdds(float seconds){
 		int temp = GameControl.instance.coinSpawnOdds;
 		GameControl.instance.coinSpawnOdds = 1;
@@ -263,7 +284,7 @@ public class PlayerScript : MonoBehaviour {
 			shieldArr[i].transform.position = 
 		}
 	}*/
-    IEnumerator speedUpForSeconds(int seconds)
+    IEnumerator speedUpForSeconds(float seconds)
     {
         moveGame.moveSpeed *= 1.5f;
         yield return new WaitForSeconds(seconds);

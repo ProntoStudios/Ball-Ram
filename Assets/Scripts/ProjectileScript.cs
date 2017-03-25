@@ -24,7 +24,7 @@ public class ProjectileScript : MonoBehaviour {
 	void FixedUpdate () {
 		if (health < 1 && !isDead) {
 			isDead = true;
-			Debug.Log (trans.position);
+			//Debug.Log (trans.position);
 			GetComponent<AudioSource> ().Play ();
 			killProj ();
 
