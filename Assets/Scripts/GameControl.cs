@@ -73,7 +73,6 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 	void Start(){
-		interfaces = GameObject.FindGameObjectsWithTag("Interface");
 	}
 	// Update is called once per frame
 	void Update () {
@@ -280,6 +279,7 @@ public class GameControl : MonoBehaviour {
 		PlayerScript.instance.Unkill ();
 	}
 	public void InterfaceOff(){
+		interfaces = GameObject.FindGameObjectsWithTag("Interface");
 		foreach (GameObject i in interfaces) {
 			i.SetActive(false);
 		}
